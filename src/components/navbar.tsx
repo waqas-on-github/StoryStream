@@ -1,29 +1,26 @@
-
+"use server"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet"
+import { childrenType } from "@/types/commonTypes"
+import { Model } from "./model"
 
-export function Navbar() {
+export async function Navbar({ children }: childrenType) {
   return (
+    <>
     <header className="flex h-16 w-full items-center justify-between px-4 md:px-6">
-      <Link className="flex items-center gap-2" href="#">
-        <MountainIcon className="h-6 w-6" />
-        <span className="sr-only">Acme Inc</span>
+        <Link className="flex items-center gap-2" href="/">
+          <MountainIcon className="h-6 w-6" />
       </Link>
       <nav className="hidden md:flex items-center gap-5">
-        <Link className="text-sm font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-50" href="#">
-          Home
+          <Link className="text-sm font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-50" href="articles">
+            Articles
         </Link>
-        <Link className="text-sm font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-50" href="#">
-          About
-        </Link>
-        <Link className="text-sm font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-50" href="#">
-          Services
-        </Link>
-        <Link className="text-sm font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-50" href="#">
-          Contact
-        </Link>
+
+          <Model actionType="Sign in" href="#signin" />
+          <Model actionType="Sign up" href="#signup" />
       </nav>
+
       <Sheet>
         <SheetTrigger asChild>
           <Button className="rounded-full md:hidden" >
@@ -33,20 +30,19 @@ export function Navbar() {
         </SheetTrigger>
         <SheetContent className="w-[300px] p-6 md:hidden" >
           <div className="flex flex-col gap-4">
-            <Link className="flex items-center gap-2 text-lg font-semibold" href="#">
-              Home
+              <Link className="text-sm font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-50" href="articles">
+                Articles
             </Link>
-            <Link className="flex items-center gap-2 text-lg font-semibold" href="#" />
-            <Link className="flex items-center gap-2 text-lg font-semibold" href="#">
-              Services
-            </Link>
-            <Link className="flex items-center gap-2 text-lg font-semibold" href="#">
-              Contact
-            </Link>
+
+              <Model actionType="Sign in" />
+              <Model actionType="Sign up" />
           </div>
         </SheetContent>
       </Sheet>
+
     </header>
+      {children}
+    </>
   )
 }
 
