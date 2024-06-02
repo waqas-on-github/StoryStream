@@ -1,7 +1,8 @@
+import { authType } from '@/types/authType'
 import Link from 'next/link'
 import React from 'react'
 
-const AuthFormToggle = ({ actionType, href }: { actionType: string, href: string }) => {
+const AuthFormToggle = ({ actionType, href }: authType) => {
     return (
         <div className="text-center text-sm text-gray-500 dark:text-gray-400">
             {actionType.includes('up') ? "Already have an account?" : "Dont have account?"}
