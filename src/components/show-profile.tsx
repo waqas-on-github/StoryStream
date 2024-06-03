@@ -15,7 +15,7 @@ export function ShowProfile({ user }: { user: Awaited<ReturnType<typeof getSingl
         {user.data?.email}
       </CardHeader>
       <CardContent className="flex items-center justify-center flex-col gap-4" >
-        <Link href='#' > Profile</Link>
+        <Link href='/profile' > Profile</Link>
         <Link href='#' > Profile</Link>
         <Link href='#' > Profile</Link>
         <LogoutBtn />

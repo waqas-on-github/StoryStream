@@ -1,0 +1,39 @@
+
+.text-editor__editor {
+
+
+     &:focus {
+           outline: none;
+
+      } 
+      &::placeholder {
+        color: rgb(200, 200, 200);
+        font-size: 20px;
+      }
+
+}
+.wola {
+  /* Add your desired paragraph styles here */
+  margin: 1em 0;
+  font-size: 18px;
+  line-height: 1.5;
+  
+}                                                                                           
+
+
+/* Basic editor styles */
+.tiptap {
+  > * + * {
+    margin-top: 0.75em;
+  }
+}
+
+/* Placeholder (at the top) */
+.tiptap .is-editor-empty:first-child::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+

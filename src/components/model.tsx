@@ -4,16 +4,14 @@ import { DialogTrigger, DialogTitle, DialogContent, Dialog } from "@/components/
 import Link from "next/link"
 import { cn } from "@/lib/utils"
 import AuthForm from "./auth.Form"
-import DialogContextProvider from "@/contexts/dialogcontext"
 import { authType } from "@/types/authType"
 
 export async function Model({ actionType, className, href }: authType) {
 
   return (
-    <DialogContextProvider >
       <Dialog >
       <DialogTrigger asChild>
-          <Link href={`${href || "#"}`} className={cn("text-base font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-50", className)}  >
+        <Link href={`${href || "#"}`} className={cn("text-base font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-50", className)}  >
             {actionType.includes("up") ? <Button className="text-base rounded-full md:p-4 md:px-6" >Get started</Button> : actionType}
         </Link>
       </DialogTrigger>
@@ -29,7 +27,6 @@ export async function Model({ actionType, className, href }: authType) {
 
       </DialogContent>
     </Dialog >
-    </DialogContextProvider>
   )
 }
 

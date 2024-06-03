@@ -53,7 +53,7 @@ const AuthForm = ({ actionType, href }: authType) => {
                 onSuccess: (data) => {
                     if (data?.success) {
                         reset()
-                        router.push("/")
+                        router.push("/profile")
                     }
 
                 }

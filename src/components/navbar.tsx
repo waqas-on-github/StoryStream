@@ -10,8 +10,8 @@ import AuthWrapper from "./authWrapper"
 
 export async function Navbar({ children }: childrenType) {
 
+  // validating user and get user id 
   const { user } = await validateRequest()
-
 
 
   return (
@@ -21,11 +21,14 @@ export async function Navbar({ children }: childrenType) {
           <MountainIcon className="h-6 w-6" />
         </Link>
         <nav className="hidden md:flex items-center gap-5">
+          {user && user.id && <Link href='/write'>Write</Link>}
           <Link className="text-sm font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-50" href="articles">
             Articles
           </Link>
+          {/* // if user is authancated   */}
           {user && user.id ? <AuthWrapper userId={user.id} /> :
             <>
+
               <Model actionType="signin" href="#" />
               <Model actionType="signup" href="#" />
             </>
@@ -41,6 +44,9 @@ export async function Navbar({ children }: childrenType) {
           </SheetTrigger>
           <SheetContent className="w-[300px] p-6 md:hidden" >
             <div className="flex flex-col gap-4">
+              {user && user.id && <Link href='/write'>Write</Link>}
+
+
               <Link className="text-sm font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-50" href="articles">
                 Articles
               </Link>

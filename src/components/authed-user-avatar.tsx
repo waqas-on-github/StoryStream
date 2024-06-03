@@ -8,7 +8,7 @@ import { RootState } from "../../store"
 import { ShowProfile } from "./show-profile"
 
 export function AuthedUserAvatar({ user }: { user: Awaited<ReturnType<typeof getSingleUser>> }) {
-
+  // state management for opening closing avatar dialog
   const dispatch = useDispatch()
   const profileDialogState = useSelector((state: RootState) => state.navbarstate.isProfileDialogOpen)
 
@@ -16,8 +16,6 @@ export function AuthedUserAvatar({ user }: { user: Awaited<ReturnType<typeof get
     <>
       <div className="flex items-center relative ">
         <Avatar onClick={(e) => {
-          console.log("Avatar clicked");
-
           e.preventDefault();
           e.stopPropagation();
           dispatch(setProfileDialog(!profileDialogState))
