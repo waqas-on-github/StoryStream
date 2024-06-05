@@ -1,16 +1,16 @@
 
 "use client"
-import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
-import { getSingleUser } from "@/lib/server_utils"
+import { AvatarImage, AvatarFallback, Avatar } from "../components/ui/avatar"
+import { getSingleUser } from "../lib/server_utils"
 import { useSelector, useDispatch } from "react-redux"
-import { setProfileDialog } from "@/featurs/navbar/navbarSlice"
+import { setProfileDialog } from "../featurs/navbar/navbarSlice"
 import { RootState } from "../../store"
 import { ShowProfile } from "./show-profile"
 
 export function AuthedUserAvatar({ user }: { user: Awaited<ReturnType<typeof getSingleUser>> }) {
   // state management for opening closing avatar dialog
   const dispatch = useDispatch()
-  const profileDialogState = useSelector((state: RootState) => state.navbarstate.isProfileDialogOpen)
+  const profileDialogState = useSelector((state: RootState) => state?.navbarstate?.isProfileDialogOpen)
 
   return (
     <>

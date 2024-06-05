@@ -11,6 +11,8 @@
         font-size: 20px;
       }
 
+      color: white;
+
 }
 .wola {
   /* Add your desired paragraph styles here */
@@ -37,3 +39,32 @@
   pointer-events: none;
 }
 
+.tiptap {
+  > * + * {
+    margin-top: 0.75em;
+  }
+
+  ul,
+  ol {
+    padding: 0 1rem;
+  }
+}
+
+/* styles/Editor.module.css */
+.ProseMirror ol {
+  list-style-type: decimal;
+  margin-left: 20px;
+}
+
+.ProseMirror ol li {
+  margin: 5px 0;
+}
+
+.ProseMirror ul {
+  list-style-type: lower-latin;
+    margin-left: 20px;
+
+}
+.ProseMirror h1 {
+  font-size: 30px;
+}

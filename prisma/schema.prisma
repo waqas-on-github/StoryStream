@@ -13,9 +13,6 @@ datasource db {
 
 
 
-
-
-
 model User {
   id               String     @id @default(cuid())
   email            String     @unique
@@ -70,7 +67,7 @@ model Articles {
   catagory         Catagory[]
   user             User       @relation(references: [id], fields: [userId], onDelete: Cascade)
   userId           String
-  featureImage     String 
+  featureImage     String? 
   views            BigInt?
   upVote           BigInt?
   downVote         BigInt?
