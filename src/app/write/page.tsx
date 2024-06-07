@@ -2,6 +2,7 @@ import React from 'react'
 import TextEditor from '../../components/tipTap'
 import { validateRequest } from '../../lib/auth'
 import { redirect } from 'next/navigation'
+import WriteForm from '@/components/writeForm'
 
 
 const Write = async () => {
@@ -10,9 +11,10 @@ const Write = async () => {
         return redirect("/")
     }
     return (
-        <div className=' flex items-center justify-center' >
-            <TextEditor />
+        <div className='flex items-center justify-center '>
+            <WriteForm />
         </div>
+
     )
 }
 

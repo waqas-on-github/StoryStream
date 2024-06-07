@@ -5,12 +5,14 @@ import Underline from "@tiptap/extension-underline";
 import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
+import { Markdown } from "tiptap-markdown";
 
 export const useEditorConfig = () => {
   const editor = useEditor({
     extensions: [
       StarterKit,
       Underline,
+      Markdown,
 
       Link.configure({
         openOnClick: false,
@@ -27,7 +29,7 @@ export const useEditorConfig = () => {
       Placeholder.configure({
         placeholder: ({ node }) => {
           if (node.type.name === "paragraph") {
-            return "What’s the title?";
+            return "Start writing from here....";
           }
 
           return "Can you add some further context?";

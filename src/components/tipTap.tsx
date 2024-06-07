@@ -14,11 +14,12 @@ const TextEditor = () => {
     const { mutate, isPending, } = usePostData()
 
     const editor = useEditorConfig()
+    const markdownOutput = editor?.storage.markdown.getMarkdown();
 
 
     const logContent = () => {
         if (editor) {
-            mutate(editor?.getJSON())
+            mutate(JSON.stringify(markdownOutput))
         }
     };
 
@@ -77,7 +78,7 @@ const TextEditor = () => {
         return null
     }
     return (
-        <div className=' w-[90%] md:w-[80%] bg-[#171717] p-[20px] mt-10 ' >
+        <>
             <div className='text-white bg-[#090909] p-4 flex gap-4' >
                 <button onClick={addHeading} ><Heading1 /></button>
                 <button onClick={addBold} >< Bold /></button>
@@ -106,11 +107,13 @@ const TextEditor = () => {
 
             </div>
 
-            <EditorContent placeholder="Enter the text" editor={editor} />
+
+
+            <EditorContent className='h-[40vh] pl-3' editor={editor} />
 
 
             <Button className=' bg-black hover:bg-[#171717] active:border active:border-dashed hover:border hover:border-dashed' disabled={isPending} onClick={logContent}>Publish</Button>
-        </div>
+        </>
     );
 };
 

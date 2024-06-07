@@ -67,11 +67,12 @@ model Articles {
   catagory         Catagory[]
   user             User       @relation(references: [id], fields: [userId], onDelete: Cascade)
   userId           String
-  featureImage     String? 
   views            BigInt?
   upVote           BigInt?
   downVote         BigInt?
+  title            String
   text             String
+  featureImage     String? 
   updatedAt        DateTime   @updatedAt
   createdAt        DateTime   @default(now())
     

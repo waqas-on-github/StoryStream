@@ -1,10 +1,15 @@
 "use server";
 import { validateRequest } from "@/lib/auth";
 import { prisma } from "../../prismaClient";
+import { redirect } from "next/navigation";
 
 export const getBlogData = async (data: Object) => {
-  console.log("getBlogData called...............");
   const { user } = await validateRequest();
+
+  if (!user) {
+    redirect("/");
+  }
+
   let postedData;
   try {
     // Convert data to a JSON string and write to file
@@ -24,9 +29,8 @@ export const getBlogData = async (data: Object) => {
       };
     }
 
-    return postedData;
+    return { success: true, data: postedData };
   } catch (error) {
-    // Log any error that occurs during the write operation
     return {
       success: false,
       error: { message: "failed to post data" },
