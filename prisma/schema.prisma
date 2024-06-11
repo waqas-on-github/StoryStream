@@ -8,6 +8,7 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+ 
 }
 
 
@@ -102,8 +103,8 @@ model Catagory {
 model Vote {
    id          String     @id @default(cuid())
    voteType    voteType
-   userId      String     @unique
-   articleId   String     @unique
+   userId      String     
+   articleId   String     
    user        User       @relation(references: [id], fields: [userId])
    article     Articles   @relation(references: [id] , fields: [articleId])
 
