@@ -1,11 +1,19 @@
 import React from 'react'
 import { Button } from './ui/button'
+import { LoaderIcon } from 'lucide-react';
 
-const AuthFormBtn = ({ actionType }: { actionType: "signin" | "signup" }) => {
+const AuthFormBtn = ({ actionType, signinPending }: { actionType: "signin" | "signup"; signinPending: boolean }) => {
     return (
+
+        <>
+            {signinPending ? <Button disabled={signinPending} className="w-full" type="submit">
+                <LoaderIcon />
+            </Button> : 
         <Button className="w-full" type="submit">
             {actionType}
         </Button>
+            }
+        </>
     )
 }
 

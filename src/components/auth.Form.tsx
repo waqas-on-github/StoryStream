@@ -1,13 +1,12 @@
 'use client'
 import { Label } from "@radix-ui/react-label";
 import { Input } from "./ui/input";
-import { useForm } from "react-hook-form";
+import { useForm } from "react-hook-form"
 import AuthFormBtn from "./authFormBtn";
 import AuthFormToggle from "./authFormToggle";
 import { authType } from "../types/authType";
 import { loginSchema, signupSchema, userType } from "../schema/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
-// import { sanitizeInput } from "@/helpers/inputSanitizors";
 import { useSignUp } from "../hooks/useSignup";
 import { useSignin } from "../hooks/useSignin";
 import { useRouter } from "next/navigation";
@@ -29,7 +28,7 @@ const AuthForm = ({ actionType, href }: authType) => {
         )
 
     const { mutate, isPending, } = useSignUp()
-    const { mutate: signInMutate } = useSignin()
+    const { mutate: signInMutate, isPending: signinPending } = useSignin()
 
 
 
@@ -100,7 +99,7 @@ const AuthForm = ({ actionType, href }: authType) => {
 
                     </div>}
                 <div className="border-red-950">
-                    <AuthFormBtn actionType={actionType} />
+                    <AuthFormBtn actionType={actionType} signinPending={signinPending} />
                 </div>
                 <AuthFormToggle actionType={actionType} href={href} />
 

@@ -5,15 +5,12 @@ import RenderMdToHtml from '@/components/renderMdToHtml'
 
 const page = async () => {
 
-    const articles: Articles[] = await prisma.articles.findMany({ include: { user: true } })
-
-
-
+    const articles: Articles[] = await prisma?.articles?.findMany({ include: { user: true } })
 
 
     return (
         <>
-            <RenderMdToHtml articles={JSON.stringify(articles)} />
+            <RenderMdToHtml articles={JSON.stringify(articles)} />  
         </>
     )
 }

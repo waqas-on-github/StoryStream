@@ -1,3 +1,4 @@
+"use client";
 import Heading from "@tiptap/extension-heading";
 import Paragraph from "@tiptap/extension-paragraph";
 import Placeholder from "@tiptap/extension-placeholder";
@@ -6,14 +7,21 @@ import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Link from "@tiptap/extension-link";
 import { Markdown } from "tiptap-markdown";
+import Image from "@tiptap/extension-image";
 
-export const useEditorConfig = () => {
+export const useEditorConfig = ({
+  onChange,
+}: {
+  onChange: (markdown: string) => void;
+}) => {
+  // console.log("props form editor ");
+
   const editor = useEditor({
     extensions: [
       StarterKit,
       Underline,
       Markdown,
-
+      Image,
       Link.configure({
         openOnClick: false,
         HTMLAttributes: {
@@ -37,6 +45,9 @@ export const useEditorConfig = () => {
       }),
     ],
 
+    onUpdate: ({ editor }) => {
+      onChange(editor?.storage.markdown.getMarkdown());
+    },
     autofocus: true,
     injectCSS: false,
     editorProps: {

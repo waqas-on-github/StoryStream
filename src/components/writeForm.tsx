@@ -1,49 +1,97 @@
 'use client'
-import { useForm } from "react-hook-form"
-import TextEditor from "./tipTap"
-import { Input } from "./ui/input"
-import { Button } from "./ui/button"
+
+import React from 'react';
+import TextEditor from './tipTap';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { editorSchema } from '@/schema/editorSchema';
+import { z } from 'zod';
+import { toast } from 'sonner';
+import { usePostArticle } from '@/hooks/usePostData';
+import { Button } from './ui/button';
+import { Loader } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+
 
 
 const WriteForm = () => {
 
-    const { register, getValues, trigger } = useForm()
+
+    const { register, trigger, getValues, setValue, formState: { errors } }
+        = useForm<z.infer<typeof editorSchema>>({ resolver: zodResolver(editorSchema) })
+
+    const { mutate, isPending } = usePostArticle()
+    const router = useRouter()
+    // callback funcation to get markdown contetn form editor 
+    const handleEditorChange = (markdown: string) => {
+        setValue('content', markdown);
+    };
+
+    // client action 
+    const onSubmit = async () => {
 
 
+        const isValid = await trigger();
+        if (!isValid) {
+            console.log("Form not validated. Validation status -->", isValid);
+            toast.error("fill all the fields to publish ")
+            return;
+        }
 
-    const submit = async () => {
-        const val = await trigger()
-        if (!val) {
-            console.log("form not triggerd. trigger value -->", val);
-            return
+
+        const formValues = getValues()
+        if (formValues.title.length < 5) {
+            toast.error(" Title  is nessery  ")
 
         }
-        // get input values 
-        const inputValues = getValues()  //these value are viladated buy zod 
-        console.log(inputValues);
 
+        if (formValues.title.length === 5 || formValues.title.length > 5) {
 
-    }
+            mutate(JSON.stringify(formValues), {
+                onSuccess: () => {
+                    router.push('/articles')
+                }
+            }
+
+            )
+        }
+
+    };
+
 
     return (
-        <div className=' w-[80%] md:w-[70%] bg-[#171717]  p-[20px] mt-10 ' >
-            <form action={submit} className="flex gap-4 flex-col justify-center " >
+        <div className='w-[80%] md:w-[70%] bg-[#171717] p-[20px] mt-10 '>
+            <form action={onSubmit} className="flex gap-4 flex-col justify-center h-auto">
                 <div>
 
-
+                    <input
+                        className="bg-[#171717] h-20    px-3 text-[50px] w-full border-none focus-none placeholder:text-[#adb5bd] text-white placeholder:px-2 placeholder:text-[50px]"
+                        type="text"
+                        {...register("title")}
+                        placeholder="ADD TITLE HERE..."
+                    />
+                    {errors?.title && <p>{errors?.title?.message}</p>}
                 </div>
-                <Input
-                    className="bg-[#171717] border-none focus-none   placeholder:text-[#adb5bd] text-white "
-                    type="text"
-                    {...register("title")}
-                    placeholder="NEW POST TITLE HERE... " />
+                <TextEditor onChange={handleEditorChange} />
 
-                {/* <TextEditor /> */}
+                {isPending ?
+                    <Button
+                        className='bg-white/5 hover:bg-black/50'
+                        disabled={isPending}
+                        type='button'
+                    >
+                        publishing ... <Loader />
+                    </Button>
+                    :
+                    <Button
 
-                <Button type="submit" >publish</Button>
+                        className='bg-black hover:bg-black/50'
+                        type="submit">
+                        publish
+                    </Button>}
             </form>
         </div>
-    )
-}
+    );
+};
 
-export default WriteForm
+export default WriteForm;

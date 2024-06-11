@@ -1,14 +1,12 @@
 "use client";
-import { getBlogData } from "@/actions/getBlogData";
+import { SubmitArticle } from "@/actions/submitArticle";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-export const usePostData = () => {
-  const { mutate, isPending, data } = useMutation({
-    mutationFn: getBlogData,
+export const usePostArticle = () => {
+  const { mutate, isPending } = useMutation({
+    mutationFn: SubmitArticle,
     onSuccess: (data) => {
-      console.log(data);
-
       if (data.error || !data.success) {
         toast.message("falied to add post");
       }
@@ -17,8 +15,6 @@ export const usePostData = () => {
       }
     },
     onError: (error) => {
-      console.log(error);
-
       toast.error("failed to add post");
     },
   });
@@ -26,6 +22,5 @@ export const usePostData = () => {
   return {
     mutate,
     isPending,
-    data,
   };
 };

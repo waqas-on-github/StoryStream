@@ -1,7 +1,9 @@
-import { useForm } from "react-hook-form"
+'use client'
 
-const CoverImageUpload = () => {
-    const { register, getValues, trigger } = useForm()
+import { toast } from "sonner"
+
+const CoverImageUpload = ({ register, errors }) => {
+
     return (
         <form  >
             <input
@@ -13,7 +15,7 @@ const CoverImageUpload = () => {
                 {...register('featureImage')}
 
             />
-
+            {errors.featureImage && toast.error(errors?.featureImage?.message)}
 
         </form>
     )

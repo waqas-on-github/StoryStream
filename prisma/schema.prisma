@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -22,6 +22,7 @@ model User {
   articals         Articles[]
   bookmark         Bookmark[]
   comment          Comments[]
+  votes              Vote[]
   updatedAt        DateTime   @updatedAt
   createdAt        DateTime   @default(now())
 
@@ -50,9 +51,9 @@ model Profile {
 
 model Bookmark {
 
-  id               String     @id @default(cuid())
+  id               String     @id @default(cuid())  // bookmark id 
   userId           String     
-  articleId        String
+  articleId        String     
   user             User       @relation(fields: [userId], references: [id])
   article          Articles   @relation(fields: [articleId], references: [id])
   updatedAt        DateTime   @updatedAt
@@ -65,6 +66,7 @@ model Articles {
   bookmark         Bookmark[]
   comment          Comments[]
   catagory         Catagory[]
+  votes             Vote[]
   user             User       @relation(references: [id], fields: [userId], onDelete: Cascade)
   userId           String
   views            BigInt?
@@ -96,6 +98,21 @@ model Catagory {
   createdAt         DateTime   @default(now())
 } 
 
+
+model Vote {
+   id          String     @id @default(cuid())
+   voteType    voteType
+   userId      String     @unique
+   articleId   String     @unique
+   user        User       @relation(references: [id], fields: [userId])
+   article     Articles   @relation(references: [id] , fields: [articleId])
+
+}
+
+enum voteType {
+  UPVOTE
+  DOWNVOTE
+}
 
 
 

@@ -1,5 +1,3 @@
-import React from 'react'
-import TextEditor from '../../components/tipTap'
 import { validateRequest } from '../../lib/auth'
 import { redirect } from 'next/navigation'
 import WriteForm from '@/components/writeForm'

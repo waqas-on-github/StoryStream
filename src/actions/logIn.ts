@@ -8,11 +8,13 @@ import { lucia } from "@/lib/auth";
 import { cookies } from "next/headers";
 import { errorResponceType, successResponceType } from "./signup";
 import { User } from "@prisma/client";
+import { sleep } from "@/lib/utils";
 
 export const signIn = async (
   inputData: z.infer<typeof loginSchema>
 ): Promise<successResponceType<User> | errorResponceType | undefined> => {
   //check email existance
+  await sleep(2000);
   const user = await checkUserExistance(inputData?.email);
 
   if (user.error && !user.success)

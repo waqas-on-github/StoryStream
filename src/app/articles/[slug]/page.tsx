@@ -1,8 +1,16 @@
-import React from 'react'
+import RenderSingleArticle from "@/components/renderSingleArticle";
+import { prisma } from "../../../../prismaClient"
 
-const SingleArticle = () => {
+const SingleArticle = async ({ params: { slug } }: { params: { slug: string } }) => {
+
+    const SingleArticle = await prisma.articles.findUnique({
+        where: { id: slug }
+    })
+
+
+
     return (
-        <div>SingleArticle</div>
+        <RenderSingleArticle SingleArticle={SingleArticle} />
     )
 }
 

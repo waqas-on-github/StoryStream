@@ -22,7 +22,7 @@ export async function Navbar({ children }: childrenType) {
         </Link>
         <nav className="hidden md:flex items-center gap-5">
           {user && user.id && <Link href='/write'>Write</Link>}
-          <Link className="text-sm font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-50" href="articles">
+          <Link className="text-sm font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-50" href="/articles">
             Articles
           </Link>
           {/* // if user is authancated   */}
