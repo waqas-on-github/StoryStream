@@ -1,8 +1,9 @@
 "use server";
 import { prisma } from "../../prismaClient";
 import { CheckAuth } from "./checkAuth";
+import { removeUpvote } from "./removeUpvote";
 
-export const upVote = async (articleId: string) => {
+export const addVote = async (articleId: string) => {
   // check user exists and logged in in application
   const { user } = await CheckAuth();
 
@@ -30,11 +31,13 @@ export const upVote = async (articleId: string) => {
 
     if (hasVotedBefore) {
       // call removeUpvote server action
-      // for now return error
-      return {
-        success: false,
-        error: { message: "already upvoted by same user " },
-      };
+      const result = await removeUpvote({
+        voteId: hasVotedBefore.id,
+        voteType: "UPVOTE",
+      });
+      if (result.data && result.success) {
+        return;
+      }
     }
 
     // add upvote
