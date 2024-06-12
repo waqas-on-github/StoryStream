@@ -1,11 +1,19 @@
 "use server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "../../prismaClient";
 import { CheckAuth } from "./checkAuth";
 import { removeUpvote } from "./removeUpvote";
 
-export const addVote = async (articleId: string) => {
+export const addVote = async ({
+  articleId,
+  voteType,
+}: {
+  articleId: string;
+  voteType: "UPVOTE" | "DOWNVOTE";
+}) => {
   // check user exists and logged in in application
   const { user } = await CheckAuth();
+  console.log(user);
 
   // check article exists
   try {
@@ -25,7 +33,7 @@ export const addVote = async (articleId: string) => {
       where: {
         userId: user.id,
         articleId: articleId,
-        voteType: "UPVOTE",
+        voteType: voteType,
       },
     });
 
@@ -33,17 +41,21 @@ export const addVote = async (articleId: string) => {
       // call removeUpvote server action
       const result = await removeUpvote({
         voteId: hasVotedBefore.id,
-        voteType: "UPVOTE",
+        voteType: voteType,
       });
       if (result.data && result.success) {
-        return;
+        return {
+          success: true,
+          data: result,
+          message: ` ${voteType} removed`,
+        };
       }
     }
 
     // add upvote
     const addUpVote = await prisma.vote.create({
       data: {
-        voteType: "UPVOTE",
+        voteType: voteType,
         userId: user.id,
         articleId: articleId,
       },
@@ -52,20 +64,22 @@ export const addVote = async (articleId: string) => {
     if (!addUpVote) {
       return {
         success: false,
-        error: { message: "failed  upvoted " },
+        error: { message: `failed to ${voteType}` },
       };
     }
 
+    revalidatePath("/article", "page");
     return {
       success: true,
       data: addUpVote,
+      message: `${voteType} added`,
     };
   } catch (error) {
     console.log(error);
 
     return {
       success: false,
-      error: { message: "failed  upvoted  : Prisma error " },
+      error: { message: `failed  to  ${voteType} : Prisma error ` },
     };
   }
 };

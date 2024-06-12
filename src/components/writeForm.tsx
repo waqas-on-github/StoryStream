@@ -1,5 +1,4 @@
 'use client'
-
 import React from 'react';
 import TextEditor from './tipTap';
 import { useForm } from 'react-hook-form';
@@ -63,7 +62,6 @@ const WriteForm = () => {
         <div className='w-[80%] md:w-[70%] bg-[#171717] p-[20px] mt-10 '>
             <form action={onSubmit} className="flex gap-4 flex-col justify-center h-auto">
                 <div>
-
                     <input
                         className="bg-[#171717] h-20    px-3 text-[50px] w-full border-none focus-none placeholder:text-[#adb5bd] text-white placeholder:px-2 placeholder:text-[50px]"
                         type="text"

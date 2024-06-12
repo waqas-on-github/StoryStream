@@ -1,29 +1,40 @@
-import React from 'react'
+'use client'
 import { Button } from './ui/button'
-import { useUpvote } from '@/hooks/useUpvote'
 import { LoaderIcon } from 'lucide-react'
+import { useVote } from '@/hooks/useVote';
 
-const UpVoteBtn = ({ articleId }: { articleId: string }) => {
+const UpVoteBtn = ({ articleId, voteType, totalUpVotes, isUpVotedByLoggedInUser }: { articleId: string; voteType: "UPVOTE" | "DOWNVOTE", totalUpVotes: any, isUpVotedByLoggedInUser: any }) => {
 
-    const { mutate, isPending } = useUpvote()
+
+
+
+
+    const { mutate, isPending } = useVote()
 
     const submit = async () => {
 
-        mutate(articleId)
+        mutate({ articleId, voteType })
     }
+
 
     return (
 
         <>
+
             {isPending ? <Button> <LoaderIcon /> </Button> :
                 <Button
+                    className={`${isUpVotedByLoggedInUser ? "bg-blue-600" : ''}`}
                     onClick={submit}
 
-                >upvote</Button>
+                >upvote{totalUpVotes}</Button>
             }
+
         </>
 
     )
 }
+
+
+
 
 export default UpVoteBtn

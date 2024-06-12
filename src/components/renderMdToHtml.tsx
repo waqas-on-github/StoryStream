@@ -1,18 +1,17 @@
-'use client'
 import React from 'react'
 import RenderToMd from './renderToMd'
 import { Card } from './ui/card'
 import Image from 'next/image'
 import Link from 'next/link'
-import BookMarkBtn from './bookMarkBtn'
-import UpVoteBtn from './upVoteBtn'
-import DownVote from './downVote'
+import CardBtnWrapper from './cardBtnWrapper'
 
 
 
-const RenderMdToHtml = ({ articles }: { articles: string }) => {
+const RenderMdToHtml = ({ articles, user }: { articles: string; user: string }) => {
+
 
     const parsedArticles: any = JSON.parse(articles)
+
 
     const parsedArticlesWithText = parsedArticles.map((oneArticle: any) => {
 
@@ -23,10 +22,14 @@ const RenderMdToHtml = ({ articles }: { articles: string }) => {
             title: oneArticle?.title,
             email: oneArticle?.user?.email,
             text: JSON.parse(text),
-            image: oneArticle.featureImage
+            image: oneArticle.featureImage,
+            ...oneArticle
+
 
         }
     })
+
+
 
     if (!parsedArticles || parsedArticles.length === 0) {
         return <> No Articles Found </>
@@ -48,16 +51,12 @@ const RenderMdToHtml = ({ articles }: { articles: string }) => {
                                 <RenderToMd oneArticle={oneArticle.text.slice(0, 50)} />
                                 <Link className='self-end text-[12px]' href={`/articles/${oneArticle.id}`} > Read More </Link>
                             </div>
-                            <div className='flex '>
-                            <BookMarkBtn articleId={oneArticle.id} />
-                                <UpVoteBtn articleId={oneArticle?.id} />
-                                <DownVote articleId={oneArticle?.id} />
-                            </div>
+                            <CardBtnWrapper articleId={oneArticle.id} user={user} />
 
                         </Card  >
                     )
                 })
-            } 
+            }
         </>
     )
 }

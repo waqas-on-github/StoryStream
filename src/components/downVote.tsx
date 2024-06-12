@@ -1,25 +1,29 @@
-import React from 'react'
+'use client'
 import { Button } from './ui/button'
 import { LoaderIcon } from 'lucide-react'
-import { useDownvote } from '@/hooks/useDownvote'
+import { useVote } from '@/hooks/useVote'
 
-const UpVoteBtn = ({ articleId }: { articleId: string }) => {
+const UpVoteBtn = ({ isDownVotedByLoggedInUser, totalDownVotes, articleId, voteType }: { totalDownVotes: any; articleId: string; voteType: "UPVOTE" | "DOWNVOTE", isDownVotedByLoggedInUser: any }) => {
 
-    const { mutate, isPending } = useDownvote()
+    const { mutate, isPending } = useVote()
 
     const submit = async () => {
-
-        mutate(articleId)
+        mutate({ articleId, voteType })
     }
 
     return (
 
         <>
-            {isPending ? <Button> <LoaderIcon /> </Button> :
-                <Button
-                    onClick={submit}
+            {isPending ?
+                <Button>
+                    <LoaderIcon />
+                </Button> :
 
-                >Down vote</Button>
+                <Button
+                    className={`${isDownVotedByLoggedInUser ? "bg-blue-600" : ''}`}
+                    onClick={submit}>
+                    Down vote {totalDownVotes}
+                </Button>
             }
         </>
 

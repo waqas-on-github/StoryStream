@@ -1,6 +1,6 @@
 "use client";
-import { DeleteSingleArticle } from "@/actions/deleSingleArticle";
 import { useMutation } from "@tanstack/react-query";
+import { DeleteSingleArticle } from "@/actions/deleteSingleArticle";
 import { toast } from "sonner";
 
 export const useDeleteArticle = () => {

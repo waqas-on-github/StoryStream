@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { prisma } from "../../prismaClient";
 import { CheckAuth } from "./checkAuth";
 
@@ -23,6 +24,8 @@ export const removeUpvote = async ({
         voteType: voteType,
       },
     });
+
+    revalidatePath("/article", "page");
 
     if (!removedVote) {
       return {
