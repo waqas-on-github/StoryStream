@@ -1,5 +1,4 @@
 'use server'
-
 import BookMarkBtn from "./bookMarkBtn"
 import UpVoteBtn from "./upVoteBtn"
 import DownVote from './downVote'
@@ -8,7 +7,6 @@ import { prisma } from "../../prismaClient"
 
 const CardBtnWrapper = async ({ articleId, user }: { articleId: string; user: string }) => {
 
-    console.log(articleId);
 
     const totalUpvotesCount = await prisma.vote.count({
         where: {

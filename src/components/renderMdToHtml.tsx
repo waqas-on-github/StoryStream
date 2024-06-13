@@ -4,16 +4,34 @@ import { Card } from './ui/card'
 import Image from 'next/image'
 import Link from 'next/link'
 import CardBtnWrapper from './cardBtnWrapper'
+import { prisma } from '../../prismaClient'
 
 
 
-const RenderMdToHtml = ({ articles, user }: { articles: string; user: string }) => {
+const RenderMdToHtml = async ({ user, searchParams }: { user: string; searchParams: { query: string, date: string } }) => {
 
 
-    const parsedArticles: any = JSON.parse(articles)
 
 
-    const parsedArticlesWithText = parsedArticles.map((oneArticle: any) => {
+
+
+    const articles = await prisma?.articles?.findMany(
+        {
+            where: { title: { contains: searchParams.query } },
+            orderBy: { createdAt: searchParams.date },
+            include: {
+                user: { select: { email: true } },
+                votes: { select: { voteType: true } }
+            }
+        }
+
+    )
+
+
+
+
+
+    const parsedArticlesWithText = articles.map((oneArticle: any) => {
 
         const text = oneArticle.text
         return {
@@ -31,7 +49,7 @@ const RenderMdToHtml = ({ articles, user }: { articles: string; user: string }) 
 
 
 
-    if (!parsedArticles || parsedArticles.length === 0) {
+    if (!articles || articles.length === 0) {
         return <> No Articles Found </>
     }
 
