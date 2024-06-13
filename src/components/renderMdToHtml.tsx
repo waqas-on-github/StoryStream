@@ -8,9 +8,7 @@ import { prisma } from '../../prismaClient'
 
 
 
-const RenderMdToHtml = async ({ user, searchParams }: { user: string; searchParams: { query: string, date: string } }) => {
-
-
+const RenderMdToHtml = async ({ user, searchParams }: { user: string; searchParams: { query: string, date: 'asc' | 'desc', page: string } }) => {
 
 
 
@@ -22,13 +20,12 @@ const RenderMdToHtml = async ({ user, searchParams }: { user: string; searchPara
             include: {
                 user: { select: { email: true } },
                 votes: { select: { voteType: true } }
-            }
+            },
+            take: 2,
+            skip: Number(searchParams.page) || 1
         }
 
     )
-
-
-
 
 
     const parsedArticlesWithText = articles.map((oneArticle: any) => {
@@ -60,7 +57,7 @@ const RenderMdToHtml = async ({ user, searchParams }: { user: string; searchPara
             {
                 parsedArticlesWithText.map((oneArticle: any, index: any) => {
                     return (
-
+                        <> 
                         <Card className='w-[300px] flex flex-col justify-center ' key={index}>
                             <h1> {oneArticle.title}</h1> <span className='text-[10px]'  >
                                 by---{oneArticle.email}</span>
@@ -72,6 +69,7 @@ const RenderMdToHtml = async ({ user, searchParams }: { user: string; searchPara
                             <CardBtnWrapper articleId={oneArticle.id} user={user} />
 
                         </Card  >
+                        </>
                     )
                 })
             }

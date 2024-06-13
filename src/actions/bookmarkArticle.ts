@@ -62,3 +62,29 @@ export const bookmarkArticle = async (articleId: string) => {
     };
   }
 };
+
+
+export const checkArticleExists = async (articleId: string) => {
+  try {
+    const articleExists = await prisma.articles.findUnique({
+      where: { id: articleId },
+    });
+
+    if (!articleExists) {
+      return {
+        success: false,
+        error: { message: "article dose not exists" },
+      };
+    }
+
+    return {
+      success: true,
+      data: articleExists,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: { message: "article dose not exists" },
+    };
+  }
+};

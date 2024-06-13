@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { editorSchema } from '@/schema/editorSchema';
 import { z } from 'zod';
 import { toast } from 'sonner';
-import { usePostArticle } from '@/hooks/usePostData';
+import { usePostArticle } from '@/hooks/usePostArticle';
 import { Button } from './ui/button';
 import { Loader } from 'lucide-react';
 import { useRouter } from 'next/navigation';
