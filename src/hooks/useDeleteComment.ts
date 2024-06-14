@@ -1,25 +1,25 @@
 "use client";
-import { addComment } from "@/actions/addComment";
+import { deleteComment } from "@/actions/deleteComment";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-export const usePostComment = () => {
+export const useDeleteComment = () => {
   const { mutate, isPending } = useMutation({
-    mutationFn: addComment,
+    mutationFn: deleteComment,
     onSuccess: (data) => {
       console.log(data);
-      
-      if (data?.error || !data?.success) {
-        toast.message("falied to add comment");
+
+      if (!data?.success) {
+        toast.message("falied to delete comment");
       }
       if (data?.success) {
-        toast.message("comment added ");
+        toast.message("comment deleted");
       }
     },
     onError: (error) => {
       console.log(error);
 
-      toast.error("failed to add comment");
+      toast.error("failed to delete comment");
     },
   });
 

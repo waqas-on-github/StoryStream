@@ -7,12 +7,14 @@ import { hasAlreadyCommented } from "@/utils/dataFetcher";
 import { revalidatePath } from "next/cache";
 
 type commentType = {
-  slug: string;
+  commentId: string;
   comment: string;
+  slug: string;
 };
 
 const commentScehema = z.object({
   comment: z.string().trim().min(3).max(50),
+  commentId: z.string(),
 });
 
 export const addComment = async (data: commentType) => {
@@ -37,38 +39,14 @@ export const addComment = async (data: commentType) => {
       };
     }
 
-    // check user comment limit per article
-    const commentLimit = await hasAlreadyCommented({
-      slug: data?.slug,
-      userId: user.id,
-    });
+    // check comment exists
 
-    if (commentLimit.data?.length === 2) {
-      return {
-        success: false,
-        error: { message: "comment limit reached " },
-      };
-    }
-    // add comment
-    const comment = await prisma.comments.create({
-      data: {
-        userId: user.id,
-        articleId: data.slug,
-        comment: isValidCommentData.data.comment,
-      },
-    });
-
-    if (!comment) {
-      return {
-        success: false,
-        error: { message: "failed to add comment" },
-      };
-    }
+    // update comment
     revalidatePath(`/article/${data.slug}`, "page");
 
     return {
       success: true,
-      data: comment,
+      data: "updatedComment",
     };
   } catch (error) {
     console.error(error);

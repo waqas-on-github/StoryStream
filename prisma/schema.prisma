@@ -83,8 +83,8 @@ model Articles {
 
 model Comments {
   id               String     @id @default(cuid())
-  userId           String
-  articleId        String
+  userId           String     
+  articleId        String     
   comment          String
   user             User       @relation(fields: [userId], references: [id])
   article          Articles   @relation(fields: [articleId], references: [id])

@@ -15,18 +15,21 @@ const RenderMdToHtml = async ({ user, searchParams }: { user: string; searchPara
 
     const articles = await prisma?.articles?.findMany(
         {
-            where: { title: { contains: searchParams.query } },
-            orderBy: { createdAt: searchParams.date },
+            where: { title: { contains: searchParams?.query || "" } },
+            orderBy: { createdAt: searchParams?.date || "asc" },
             include: {
                 user: { select: { email: true } },
                 votes: { select: { voteType: true } }
             },
-            take: 2,
-            skip: Number(searchParams.page) || 1
+            take: 6,
+            skip: Number(searchParams.page) || 0
+
         }
 
     )
 
+
+    console.log(articles);
 
     const parsedArticlesWithText = articles.map((oneArticle: any) => {
 
