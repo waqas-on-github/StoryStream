@@ -3,13 +3,13 @@ import React from 'react';
 import TextEditor from './tipTap';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { editorSchema } from '@/schema/editorSchema';
 import { z } from 'zod';
 import { toast } from 'sonner';
 import { usePostArticle } from '@/hooks/usePostArticle';
 import { Button } from './ui/button';
 import { Loader } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { editorSchema } from '@/schema/schmea';
 
 
 

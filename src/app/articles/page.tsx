@@ -16,7 +16,7 @@ const page = async ({ searchParams }: { searchParams: { query: string, date: 'as
             </div>
 
             <div className='flex items-center justify-center'>
-                <RenderMdToHtml user={user.id} searchParams={searchParams} />
+                <RenderMdToHtml searchParams={searchParams} />
             </div>
 
             <PaginationControls />

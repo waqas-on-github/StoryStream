@@ -1,19 +1,11 @@
 "use server";
-import { z } from "zod";
 import { checkArticleExists } from "./bookmarkArticle";
 import { CheckAuth } from "./checkAuth";
 import { prisma } from "../../prismaClient";
 import { hasAlreadyCommented } from "@/utils/dataFetcher";
 import { revalidatePath } from "next/cache";
-
-type commentType = {
-  slug: string;
-  comment: string;
-};
-
-const commentScehema = z.object({
-  comment: z.string().trim().min(3).max(50),
-});
+import { commentType } from "@/types/commonTypes";
+import { commentScehema } from "@/schema/schmea";
 
 export const addComment = async (data: commentType) => {
   try {

@@ -4,14 +4,12 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "../../prismaClient";
 import { CheckAuth } from "./checkAuth";
 import { isMyComment } from "@/utils/dataFetcher";
+import { deleteCommentType } from "@/types/commonTypes";
 
 export const deleteComment = async ({
   commentId,
   articleId,
-}: {
-  commentId: string;
-  articleId: string;
-}) => {
+}: deleteCommentType) => {
   try {
     // check user exists
     const { user } = await CheckAuth();

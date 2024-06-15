@@ -2,14 +2,12 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "../../prismaClient";
 import { CheckAuth } from "./checkAuth";
+import { deleteArticleType } from "@/types/commonTypes";
 
 export const DeleteSingleArticle = async ({
   id,
   userId,
-}: {
-  id: string;
-  userId: string;
-}) => {
+}: deleteArticleType) => {
   const { user } = await CheckAuth();
   // check userid user is providing is same as logged in user
 

@@ -5,11 +5,11 @@ import { useForm } from "react-hook-form"
 import AuthFormBtn from "./authFormBtn";
 import AuthFormToggle from "./authFormToggle";
 import { authType } from "../types/authType";
-import { loginSchema, signupSchema, userType } from "../schema/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useSignUp } from "../hooks/useSignup";
 import { useSignin } from "../hooks/useSignin";
 import { useRouter } from "next/navigation";
+import { loginSchema, signupSchema, userType } from "@/schema/schmea";
 
 
 const AuthForm = ({ actionType, href }: authType) => {

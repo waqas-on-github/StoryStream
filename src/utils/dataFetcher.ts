@@ -1,3 +1,4 @@
+import { CheckAuth } from "@/actions/checkAuth";
 import { prisma } from "../../prismaClient";
 
 export const hasAlreadyCommented = async ({
@@ -59,5 +60,79 @@ export const isMyComment = async (userId: string) => {
     return { success: true, data: isMyComment };
   } catch (error) {
     return { success: false, error: { message: "comment not found " } };
+  }
+};
+
+export const getBookmarks = async () => {
+  try {
+    const { user } = await CheckAuth();
+
+    let myBookmarks;
+    if (user && user.id) {
+      myBookmarks = await prisma.bookmark.findMany({
+        where: { userId: user?.id },
+      });
+    }
+
+    return {
+      success: true,
+      data: myBookmarks,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: { message: "faild to get bookmarks" },
+    };
+  }
+};
+
+export const getWritings = async () => {
+  try {
+    const { user } = await CheckAuth();
+
+    if (user && user.id) {
+      const myWritings = await prisma.articles.findMany({
+        where: { userId: user?.id },
+      });
+
+      return {
+        success: true,
+        data: myWritings,
+      };
+    }
+  } catch (error) {
+    return {
+      succeess: false,
+      error: { message: "failed to get your articles " },
+    };
+  }
+};
+
+export const getArticles = async ({
+  searchParams,
+}: {
+  searchParams: { query: string; date: "asc" | "desc"; page: string };
+}) => {
+  try {
+    const articles = await prisma?.articles?.findMany({
+      where: { title: { contains: searchParams?.query || "" } },
+      orderBy: { createdAt: searchParams?.date || "asc" },
+      include: {
+        user: { select: { email: true } },
+        votes: { select: { voteType: true } },
+      },
+      take: 6,
+      skip: Number(searchParams.page) || 0,
+    });
+
+    return {
+      success: true,
+      data: articles,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: { message: "failed to get articles " },
+    };
   }
 };

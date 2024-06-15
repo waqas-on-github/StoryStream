@@ -3,14 +3,9 @@
 import { revalidatePath } from "next/cache";
 import { prisma } from "../../prismaClient";
 import { CheckAuth } from "./checkAuth";
+import { removeVoteType } from "@/types/commonTypes";
 
-export const removeUpvote = async ({
-  voteId,
-  voteType,
-}: {
-  voteId: string;
-  voteType: "UPVOTE" | "DOWNVOTE";
-}) => {
+export const removeUpvote = async ({ voteId, voteType }: removeVoteType) => {
   // check user existance
   // vote id
 

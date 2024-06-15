@@ -4,8 +4,8 @@ import { sleep } from "@/lib/utils";
 import { CheckAuth } from "./checkAuth";
 
 export const SubmitArticle = async (data: string) => {
-  const parsedData = JSON.parse(data);
 
+  const parsedData = JSON.parse(data);
   const { user } = await CheckAuth();
 
   let postedData;

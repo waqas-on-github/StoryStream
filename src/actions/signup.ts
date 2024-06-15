@@ -1,22 +1,14 @@
 "use server";
 
-import { signupSchema, userType } from "@/schema/authSchema";
 import argon2 from "argon2";
 import { prisma } from "../../prismaClient";
 import { User } from "@prisma/client";
 import { lucia } from "@/lib/auth";
 import { cookies } from "next/headers";
 import { z } from "zod";
+import { signupSchema, userType } from "@/schema/schmea";
 
-export type errorResponceType = {
-  success: false;
-  error: { message: string };
-};
 
-export type successResponceType<T> = {
-  success: true;
-  data: T;
-};
 
 export const signUp = async (inputData: z.infer<typeof signupSchema>) => {
   // validate data

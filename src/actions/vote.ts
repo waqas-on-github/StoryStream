@@ -3,17 +3,11 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "../../prismaClient";
 import { CheckAuth } from "./checkAuth";
 import { removeUpvote } from "./removeUpvote";
+import { voteType } from "@/types/commonTypes";
 
-export const addVote = async ({
-  articleId,
-  voteType,
-}: {
-  articleId: string;
-  voteType: "UPVOTE" | "DOWNVOTE";
-}) => {
+export const addVote = async ({ articleId, voteType }: voteType) => {
   // check user exists and logged in in application
   const { user } = await CheckAuth();
-  console.log(user);
 
   // check article exists
   try {

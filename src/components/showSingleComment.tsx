@@ -35,7 +35,7 @@ const ShowSingleComment = ({ comment, articleId, loggendInUserId, alreadyComment
 
                     <DialogContent>
                         <div className="mt-5">
-                            <CommentForm commentText={comment?.comment} commentType="edit" alreadyCommented={alreadyCommented} slug={articleId} removeComment={removeComment} isPending={isPending} />
+                            <CommentForm commentText={comment?.comment} commentType="edit" alreadyCommented={alreadyCommented} slug={articleId} removeComment={removeComment} isPending={isPending} commentId={comment?.id} />
 
                         </div>
                     </DialogContent>

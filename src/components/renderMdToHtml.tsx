@@ -4,34 +4,19 @@ import { Card } from './ui/card'
 import Image from 'next/image'
 import Link from 'next/link'
 import CardBtnWrapper from './cardBtnWrapper'
-import { prisma } from '../../prismaClient'
+import { getArticles } from '@/utils/dataFetcher'
+import { CheckAuth } from '@/actions/checkAuth'
 
 
 
-const RenderMdToHtml = async ({ user, searchParams }: { user: string; searchParams: { query: string, date: 'asc' | 'desc', page: string } }) => {
+const RenderMdToHtml = async ({ searchParams }: { searchParams: { query: string, date: 'asc' | 'desc', page: string } }) => {
+
+    const { user } = await CheckAuth()
+    const articles = await getArticles({ searchParams })
 
 
 
-
-    const articles = await prisma?.articles?.findMany(
-        {
-            where: { title: { contains: searchParams?.query || "" } },
-            orderBy: { createdAt: searchParams?.date || "asc" },
-            include: {
-                user: { select: { email: true } },
-                votes: { select: { voteType: true } }
-            },
-            take: 6,
-            skip: Number(searchParams.page) || 0
-
-        }
-
-    )
-
-
-    console.log(articles);
-
-    const parsedArticlesWithText = articles.map((oneArticle: any) => {
+    const parsedArticlesWithText = articles?.data?.map((oneArticle: any) => {
 
         const text = oneArticle.text
         return {
@@ -49,7 +34,7 @@ const RenderMdToHtml = async ({ user, searchParams }: { user: string; searchPara
 
 
 
-    if (!articles || articles.length === 0) {
+    if (!articles || articles?.data?.length === 0 || articles.error) {
         return <> No Articles Found </>
     }
 
@@ -58,7 +43,7 @@ const RenderMdToHtml = async ({ user, searchParams }: { user: string; searchPara
     return (
         <>
             {
-                parsedArticlesWithText.map((oneArticle: any, index: any) => {
+                parsedArticlesWithText && parsedArticlesWithText.map((oneArticle: any, index: any) => {
                     return (
                         <> 
                         <Card className='w-[300px] flex flex-col justify-center ' key={index}>
@@ -69,7 +54,7 @@ const RenderMdToHtml = async ({ user, searchParams }: { user: string; searchPara
                                 <RenderToMd oneArticle={oneArticle.text.slice(0, 50)} />
                                 <Link className='self-end text-[12px]' href={`/articles/${oneArticle.id}`} > Read More </Link>
                             </div>
-                            <CardBtnWrapper articleId={oneArticle.id} user={user} />
+                                <CardBtnWrapper articleId={oneArticle.id} user={user.id} />
 
                         </Card  >
                         </>

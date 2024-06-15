@@ -1,20 +1,18 @@
 "use server";
 
-import { loginSchema } from "@/schema/authSchema";
 import { z } from "zod";
 import { prisma } from "../../prismaClient";
 import argon2 from "argon2";
 import { lucia } from "@/lib/auth";
 import { cookies } from "next/headers";
-import { errorResponceType, successResponceType } from "./signup";
 import { User } from "@prisma/client";
-import { sleep } from "@/lib/utils";
+import { loginSchema } from "@/schema/schmea";
+import { errorResponceType, successResponceType } from "@/types/commonTypes";
 
 export const signIn = async (
   inputData: z.infer<typeof loginSchema>
 ): Promise<successResponceType<User> | errorResponceType | undefined> => {
   //check email existance
-  await sleep(2000);
   const user = await checkUserExistance(inputData?.email);
 
   if (user.error && !user.success)

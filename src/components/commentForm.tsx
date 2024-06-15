@@ -20,12 +20,13 @@ type commentFormType = {
     commentType: "add" | "edit";
     commentText: string,
     removeComment?: () => Promise<void>,
-    isPending?: boolean
+    isPending?: boolean,
+    commentId: string
 
 }
 
 
-const CommentForm = ({ slug, alreadyCommented, commentType, commentText, removeComment, isPending: deleteIsPending }: commentFormType) => {
+const CommentForm = ({ slug, alreadyCommented, commentType, commentText, removeComment, isPending: deleteIsPending, commentId }: commentFormType) => {
 
     const { trigger, register, getValues, formState: { errors }, reset } = useForm<z.infer<typeof commentScehema>>({
         resolver: zodResolver(commentScehema),
@@ -44,15 +45,19 @@ const CommentForm = ({ slug, alreadyCommented, commentType, commentText, removeC
             return
         }
 
-
         const values = getValues()
 
         if (commentType === 'add') {
-            mutate({ slug: slug, ...values })
+            mutate({ slug: slug, comment: values.comment, commentType: 'add' })
+            reset()
+        }
+
+        if (commentType === 'edit') {
+            mutate({ slug: slug, comment: values.comment, commentType: 'edit', commentId: commentId })
+            reset()
         }
 
 
-        reset()
 
 
     }
@@ -75,8 +80,9 @@ const CommentForm = ({ slug, alreadyCommented, commentType, commentText, removeC
             {commentType === 'edit' && removeComment &&
                 <>
                     {!deleteIsPending ?
-                        <Button onClick={() => removeComment()} type="button"> delete</Button>
-                        : <Button disabled type="button"><LoaderIcon /></Button>}
+                    <Button onClick={() => removeComment()} type="button"> delete</Button>
+                    : <Button disabled type="button"><LoaderIcon /></Button>
+                }
                 </>
 
             }

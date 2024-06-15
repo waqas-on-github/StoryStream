@@ -2,9 +2,9 @@
 import { EditorContent } from '@tiptap/react';
 import { Bold, Heading1, Image, Link, List, ListOrdered, Redo2Icon, UnderlineIcon, Undo2Icon } from 'lucide-react';
 import { Italic } from 'lucide-react';
-import { useEditorConfig } from './useEditorConfig';
 import '../app/editor.css'
 import { useCallback } from 'react';
+import { useEditorConfig } from '@/hooks/useEditConfig';
 
 
 

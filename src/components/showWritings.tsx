@@ -1,12 +1,15 @@
+import { Articles } from "@prisma/client"
 import { DeleteArticle } from "./deleteArticle"
 
 
-const ShowWritings = ({ writings }) => {
+
+
+const ShowWritings = ({ articles }: { articles: Articles[] }) => {
 
 
     return (
         <>
-            {writings?.map((oneArticle) => {
+            {articles?.map((oneArticle) => {
                 return (
                     <>
                         <p>{oneArticle.title}</p>

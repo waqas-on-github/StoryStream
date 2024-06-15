@@ -3,14 +3,12 @@ import { sleep } from "@/lib/utils";
 import { prisma } from "../../prismaClient";
 import { CheckAuth } from "./checkAuth";
 import { revalidatePath } from "next/cache";
+import { unBookmarkArticleType } from "@/types/commonTypes";
 
 export const unBookmarkArticle = async ({
   articleId,
   bookmarkId,
-}: {
-  articleId: string;
-  bookmarkId: string;
-}) => {
+}: unBookmarkArticleType) => {
   const { user } = await CheckAuth();
 
   try {
