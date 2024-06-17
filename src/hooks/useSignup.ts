@@ -1,9 +1,12 @@
 "use client";
 import { signUp } from "@/actions/signup";
 import { useMutation } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 export const useSignUp = () => {
+  const router = useRouter();
+
   const { mutate, isPending, data } = useMutation({
     mutationFn: signUp,
     onSuccess: (data) => {
@@ -13,6 +16,7 @@ export const useSignUp = () => {
         toast.error(data?.error?.message);
       }
       if (data?.success) {
+        router.push("/profile/create");
         toast.message("account created successfully");
       }
     },

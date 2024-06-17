@@ -9,7 +9,7 @@ const initialState: CounterState = {
   playGroundInputs: "",
 };
 
-export const navbarSlice = createSlice({
+export const editorSlice = createSlice({
   name: "editorState",
   initialState,
   reducers: {
@@ -20,6 +20,6 @@ export const navbarSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setPlayGroundInputs } = navbarSlice.actions;
+export const { setPlayGroundInputs } = editorSlice.actions;
 
-export default navbarSlice.reducer;
+export default editorSlice.reducer;

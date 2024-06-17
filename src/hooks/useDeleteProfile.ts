@@ -1,24 +1,22 @@
 "use client";
-import { signIn } from "@/actions/logIn";
+import { deleteProfile } from "@/actions/deleteProfile";
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-export const useSignin = () => {
-  const router = useRouter();
+export const useDeleteProfile = () => {
   const { mutate, isPending, data } = useMutation({
-    mutationFn: signIn,
+    mutationFn: deleteProfile,
     onSuccess: (data) => {
       if (!data?.success && data?.error) {
         toast.error(data?.error?.message);
       }
       if (data?.success) {
-        router.push("/profile");
-        toast.message("account verified successfully");
+        toast.message("profile deleted successfully  ");
       }
     },
     onError: (error) => {
-      toast.message("some thing went wrong");
+      console.error(error);
+      toast.message("failed to delete profile");
     },
   });
 

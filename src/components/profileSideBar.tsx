@@ -1,12 +1,12 @@
-import Link from "next/link"
+import ActiveLink from "./activeLink"
 
 const ProfileSideBar = () => {
     return (
-        <div className="flex flex-col p-5 gap-4 bg-gray-200 w-[10vw] h-[100vh]">
+        <div className="flex flex-col p-5 gap-4 bg-gray-300 w-[10vw] h-[100vh]">
 
-            <Link href="/profile/writings" > your writings   </Link>
-            <Link href="/profile/bookmarks" > your bookmarks  </Link>
-            <Link href="#" > Account Details   </Link>
+            <ActiveLink href="/profile" > Account Details   </ActiveLink>
+            <ActiveLink href="/profile/writings" > your writings   </ActiveLink>
+            <ActiveLink href="/profile/bookmarks" > your bookmarks  </ActiveLink>
 
 
         </div>

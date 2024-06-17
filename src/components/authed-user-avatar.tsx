@@ -1,32 +1,25 @@
 
 "use client"
-import { AvatarImage, AvatarFallback, Avatar } from "../components/ui/avatar"
 import { getSingleUser } from "../lib/server_utils"
-import { useSelector, useDispatch } from "react-redux"
-import { setProfileDialog } from "../featurs/navbar/navbarSlice"
-import { RootState } from "../../store"
-import { ShowProfile } from "./show-profile"
+import { ShowUserDetails } from "./show_user"
+import { AvatarByPic } from "./userAvatar"
 
 export function AuthedUserAvatar({ user }: { user: Awaited<ReturnType<typeof getSingleUser>> }) {
-  // state management for opening closing avatar dialog
-  const dispatch = useDispatch()
-  const profileDialogState = useSelector((state: RootState) => state?.navbarstate?.isProfileDialogOpen)
+
 
   return (
     <>
-      <div className="flex items-center relative ">
-        <Avatar onClick={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          dispatch(setProfileDialog(!profileDialogState))
-        }}
-        >
-          <AvatarImage alt="user avatar" className="rounded-full" src="/placeholder.svg?height=40&width=40" />
-          <AvatarFallback className="rounded-full">{user.data?.email}</AvatarFallback>
-        </Avatar>
-      </div >
-      <div className="absolute top-[55px] right-12">
-        {profileDialogState && <ShowProfile user={user} />}
+      <div className="flex flex-col relative">
+        <div className="" >
+
+          {
+            user.data?.profile?.username &&
+            < AvatarByPic username={user.data?.profile?.username} profilePic={user.data?.profile?.profilePic} />}
+
+        </div>
+        <div className="absolute top-10 right-10" >
+          {<ShowUserDetails user={user} />}
+        </div>
       </div>
     </>
   )

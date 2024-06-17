@@ -12,14 +12,22 @@ import { formSchema } from '@/schema/schmea';
 
 
 
-const AddProfile = () => {
+const AddProfile = ({ username, profileId }: { profilePic?: string | null, username?: string; profileId?: string }) => {
 
+    let createDefaultValue;
+    if (username && profileId) {
+        createDefaultValue = {
+            username
+        }
+    }
 
     const { register, trigger, getValues, formState: { errors }, reset } = useForm<profileData>({
-        resolver: zodResolver(formSchema)
+        resolver: zodResolver(formSchema),
+        defaultValues: createDefaultValue
     });
 
     const { mutate, isPending } = useCreateProfile()
+
 
     const submit = async () => {
         const isTriggerd = await trigger()
@@ -34,12 +42,11 @@ const AddProfile = () => {
         formData.append('file', data?.profilePic[0])
         formData.append('username', data.username);
 
-        mutate(formData)
+        mutate({ formData, profileId })
 
         reset()
 
     }
-
 
 
 
@@ -54,8 +61,14 @@ const AddProfile = () => {
                     <Button type="button" disabled aria-disabled>
                         <LoaderIcon />
                     </Button>
-                ) : (
-                    <Button type="submit">Upload</Button>
+                ) : ( 
+                         <>
+                         {profileId ? 
+                         <Button    type="submit">{profileId ? "update"}</Button>
+                         :
+                         
+                        }
+                         </>
                 )
             }
         </form>

@@ -11,6 +11,7 @@ interface CommentData {
 }
 
 export const usePostComment = () => {
+
   const { mutate, isPending } = useMutation({
     mutationFn: async (inputs: CommentData) => {
       if (inputs.commentType === "add") {

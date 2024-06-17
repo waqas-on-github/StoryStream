@@ -1,16 +1,18 @@
 "use server"
 import { Button } from "@/components/ui/button"
 import { DialogTrigger, DialogTitle, DialogContent, Dialog } from "@/components/ui/dialog"
-import Link from "next/link"
 import { cn } from "@/lib/utils"
 import AuthForm from "./auth.Form"
 import { authType } from "@/types/authType"
+import Link from "next/link"
 
 export async function Model({ actionType, className, href }: authType) {
 
   return (
       <Dialog >
       <DialogTrigger asChild>
+
+
         <Link href={`${href || "#"}`} className={cn("text-base font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-50", className)}  >
             {actionType.includes("up") ? <Button className="text-base rounded-full md:p-4 md:px-6" >Get started</Button> : actionType}
         </Link>

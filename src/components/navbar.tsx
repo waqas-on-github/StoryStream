@@ -1,11 +1,12 @@
 "use server"
-import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet"
 import { childrenType } from "@/types/commonTypes"
 import { Model } from "./model"
 import { validateRequest } from "@/lib/auth"
 import AuthWrapper from "./authWrapper"
+import ActiveLink from "./activeLink"
+import Link from "next/link"
 
 
 export async function Navbar({ children }: childrenType) {
@@ -16,15 +17,15 @@ export async function Navbar({ children }: childrenType) {
 
   return (
     <>
-      <header className="flex h-16 w-full items-center justify-between px-4 md:px-12 border-b ">
+      <header className="flex  bg-[#E4E7EB] h-16 w-full items-center justify-between px-4 md:px-12 border-b ">
         <Link className="flex items-center gap-2" href="/">
           <MountainIcon className="h-6 w-6" />
         </Link>
         <nav className="hidden md:flex items-center gap-5">
-          {user && user.id && <Link href='/write'>Write</Link>}
-          <Link className="text-sm font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-50" href="/articles">
+          {user && user.id && <ActiveLink href='/write'>Write</ActiveLink>}
+          <ActiveLink className='' href="/articles">
             Articles
-          </Link>
+          </ActiveLink >
           {/* // if user is authancated   */}
           {user && user.id ? <AuthWrapper userId={user.id} /> :
             <>
@@ -44,12 +45,12 @@ export async function Navbar({ children }: childrenType) {
           </SheetTrigger>
           <SheetContent className="w-[300px] p-6 md:hidden" >
             <div className="flex flex-col gap-4">
-              {user && user.id && <Link href='/write'>Write</Link>}
+              {user && user.id && <ActiveLink className='' href='/write'>Write</ActiveLink>}
 
 
-              <Link className="text-sm font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-50" href="articles">
+              <ActiveLink className="text-sm font-medium transition-colors hover:text-gray-900 dark:hover:text-gray-50" href="articles">
                 Articles
-              </Link>
+              </ActiveLink>
 
               {user && user.id ? <AuthWrapper userId={user.id} /> :
                 <>

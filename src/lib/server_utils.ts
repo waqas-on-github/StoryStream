@@ -1,6 +1,7 @@
 import "server-only";
 import { prisma } from "../../prismaClient";
 import { getCloudniry } from "@/config/cloudinaryConfig";
+import { CheckAuth } from "@/actions/checkAuth";
 
 interface UploadResult {
   url: string;
@@ -11,6 +12,7 @@ export const getSingleUser = async (userId: string) => {
   try {
     const userData = await prisma.user.findFirst({
       where: { id: userId },
+      include: { profile: { select: { username: true, profilePic: true } } },
     });
     if (!userData)
       return { success: false, error: { message: "user not exists" } };
@@ -24,6 +26,8 @@ export const getSingleUser = async (userId: string) => {
 
 export async function uploadImage(file: File) {
   const cloudinary = getCloudniry();
+  const { user } = await CheckAuth();
+  const profile = await getProfileByUserId(user.id);
 
   try {
     const arrayBuffer = await file.arrayBuffer();
@@ -46,3 +50,27 @@ export async function uploadImage(file: File) {
     return null;
   }
 }
+export const deleteImage = async (imageUrl: string) => {
+  const cloudniary = getCloudniry();
+
+  try {
+    const deleted = await cloudniary.uploader.destroy(imageUrl);
+    console.log(deleted);
+
+    return { success: true, data: deleted };
+  } catch (error) {
+    return { success: false, error: { message: "failed to delete image " } };
+  }
+};
+
+export const getProfileByUserId = async (userId: string) => {
+  try {
+    const profile = await prisma.profile.findUnique({
+      where: { userId: userId },
+    });
+
+    return { success: true, data: profile };
+  } catch (error) {
+    return { success: false, error: { message: "faile to get profile " } };
+  }
+};

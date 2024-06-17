@@ -136,3 +136,23 @@ export const getArticles = async ({
     };
   }
 };
+
+
+
+export const getProfile = async (userId: string) => {
+  try {
+    const profile = await prisma.profile.findUnique({
+      where: { userId: userId },
+    });
+
+    return {
+      success: true,
+      data: profile,
+    };
+  } catch (error) {
+    return {
+      success: false,
+      error: { message: "failed to get profile " },
+    };
+  }
+};

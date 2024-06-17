@@ -1,14 +1,31 @@
 'use client'
 
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
+import { AvatarByUserName } from "./avatarByUserName";
 
-export const UserAvatar = () => {
+
+export type avatarByPicType = {
+    profilePic: string | null, username: string
+}
+
+
+export const AvatarByPic = ({ profilePic, username }: avatarByPicType) => {
+
+
     return (
-        <div className="w-8 h-8">
-            <Avatar  >
-                <AvatarImage alt="user avatar" className="rounded-full" src="/placeholder.svg?height=40&width=40" />
-                <AvatarFallback className="rounded-full">{ }</AvatarFallback>
+        <div className="">
+            <Avatar>
+
+                {profilePic && <AvatarImage
+                    alt="user avatar"
+                    className="object-cover border rounded-full  border-red-950 h-[30px] w-[50px"
+                    src={profilePic} />}
+
+                <AvatarFallback className=" bg-gray-300 h-[50px] w-[50px">
+                    {username && <AvatarByUserName username={username} />}
+                </AvatarFallback>
             </Avatar>
         </div>
     )
 }
+

@@ -61,23 +61,23 @@ model Bookmark {
   createdAt        DateTime   @default(now())
 }
 
-model Articles {
-    
-  id               String     @id @default(cuid())
-  bookmark         Bookmark[]
-  comment          Comments[]
-  catagory         Catagory[]
-  votes             Vote[]
-  user             User       @relation(references: [id], fields: [userId], onDelete: Cascade)
-  userId           String
-  views            BigInt?
-  title            String
-  text             String
-  featureImage     String? 
-  updatedAt        DateTime   @updatedAt
-  createdAt        DateTime   @default(now())
-    
-}
+  model Articles {
+      
+    id               String     @id @default(cuid())
+    bookmark         Bookmark[]
+    comment          Comments[]
+    catagory         Catagory[]
+    votes             Vote[]
+    user             User       @relation(references: [id], fields: [userId], onDelete: Cascade)
+    userId           String
+    views            BigInt?
+    title            String
+    text             String
+    featureImage     String? 
+    updatedAt        DateTime   @updatedAt
+    createdAt        DateTime   @default(now())
+      
+  }
 
 model Comments {
   id               String     @id @default(cuid())
