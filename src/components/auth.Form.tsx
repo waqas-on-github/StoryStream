@@ -27,7 +27,7 @@ const AuthForm = ({ actionType, href }: authType) => {
         = useForm<userType>({ resolver: zodResolver(validSchema) }  // just adding this will do binding RHF and Zod  and input validation 
         )
 
-    const { mutate, isPending, } = useSignUp()
+    const { mutate, isPending: signUpPending, } = useSignUp()
     const { mutate: signInMutate, isPending: signinPending } = useSignin()
 
 
@@ -99,9 +99,12 @@ const AuthForm = ({ actionType, href }: authType) => {
 
                     </div>}
                 <div className="border-red-950">
-                    <AuthFormBtn actionType={actionType} signinPending={signinPending} />
+
+                    <AuthFormBtn actionType={actionType} signinPending={signinPending} signUpPending={signUpPending} />
                 </div>
-                <AuthFormToggle actionType={actionType} href={href} />
+                {/* this is for toggling its not working yet after implementing parralel routing itll suppose to work   */}
+                <AuthFormToggle actionType={actionType} href={href} />  
+
 
             </form>
         </div>

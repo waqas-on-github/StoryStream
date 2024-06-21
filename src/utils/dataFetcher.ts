@@ -140,6 +140,8 @@ export const getArticles = async ({
 
 
 export const getProfile = async (userId: string) => {
+  
+  
   try {
     const profile = await prisma.profile.findUnique({
       where: { userId: userId },

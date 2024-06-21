@@ -7,7 +7,9 @@ const AuthWrapper = async ({ userId }: { userId: string }) => {
     const user = await getSingleUser(userId)
 
     return (
-        <AuthedUserAvatar user={user} />
+        <>
+            <AuthedUserAvatar user={user} />
+        </>
 
 
     )

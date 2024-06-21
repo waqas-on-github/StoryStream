@@ -2,11 +2,11 @@ import React from 'react'
 import { Button } from './ui/button'
 import { LoaderIcon } from 'lucide-react';
 
-const AuthFormBtn = ({ actionType, signinPending }: { actionType: "signin" | "signup"; signinPending: boolean }) => {
+const AuthFormBtn = ({ actionType, signinPending, signUpPending }: { actionType: "signin" | "signup"; signinPending: boolean, signUpPending: boolean }) => {
     return (
 
         <>
-            {signinPending ? <Button disabled={signinPending} className="w-full" type="submit">
+            {signinPending || signUpPending ? <Button disabled={signinPending} className="w-full" type="submit">
                 <LoaderIcon />
             </Button> : 
         <Button className="w-full" type="submit">

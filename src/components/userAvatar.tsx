@@ -13,17 +13,23 @@ export const AvatarByPic = ({ profilePic, username }: avatarByPicType) => {
 
 
     return (
+
+
         <div className="">
+
+
             <Avatar>
 
-                {profilePic && <AvatarImage
+                {profilePic ? <AvatarImage
                     alt="user avatar"
-                    className="object-cover border rounded-full  border-red-950 h-[30px] w-[50px"
-                    src={profilePic} />}
+                    className="w-[50px] h-[50px] rounded-full"
+                    src={profilePic} />
+                    :
+                    <AvatarByUserName username={username} />
 
-                <AvatarFallback className=" bg-gray-300 h-[50px] w-[50px">
-                    {username && <AvatarByUserName username={username} />}
-                </AvatarFallback>
+                }
+
+
             </Avatar>
         </div>
     )

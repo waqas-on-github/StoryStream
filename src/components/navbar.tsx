@@ -17,7 +17,7 @@ export async function Navbar({ children }: childrenType) {
 
   return (
     <>
-      <header className="flex  bg-[#E4E7EB] h-16 w-full items-center justify-between px-4 md:px-12 border-b ">
+      <header className="flex   bg-[#E4E7EB] h-16 w-full items-center justify-between px-4 md:px-12 border-b ">
         <Link className="flex items-center gap-2" href="/">
           <MountainIcon className="h-6 w-6" />
         </Link>
@@ -36,7 +36,7 @@ export async function Navbar({ children }: childrenType) {
           }
         </nav>
 
-        <Sheet>
+        <Sheet >
           <SheetTrigger asChild>
             <Button className="rounded-full md:hidden" >
               <MenuIcon className="h-6 w-6" />
@@ -63,7 +63,7 @@ export async function Navbar({ children }: childrenType) {
         </Sheet>
 
       </header>
-      {children}
+      {children}  
     </>
   )
 }

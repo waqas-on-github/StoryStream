@@ -56,23 +56,22 @@ const AddProfile = ({ username, profileId }: { profilePic?: string | null, usern
             {errors.username && <span className="text-red-800">{errors.username.message}</span>}
             <Input type="file" {...register('profilePic')} />
 
+
             {
-                isPending ? (
-                    <Button type="button" disabled aria-disabled>
-                        <LoaderIcon />
-                    </Button>
-                ) : ( 
-                         <>
-                         {profileId ? 
-                         <Button    type="submit">{profileId ? "update"}</Button>
-                         :
-                         
-                        }
-                         </>
-                )
+                <>
+
+                    {
+                        isPending ?
+                            <Button> <LoaderIcon /> </Button> :
+                            <Button type='submit' > {profileId ? "Update" : "Create"}  </Button>
+                    }
+
+                </>
             }
+
+
         </form>
     );
-};
+}
 
-export default AddProfile;
+export default AddProfile

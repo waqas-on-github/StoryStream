@@ -23,8 +23,16 @@ const ShowProfile = ({ profilePic, username, profileId }: avatarByPicType & { pr
         < >
 
             <div className="flex items-center justify-center gap-10" >
-                {profilePic && < AvatarByPic username={username} profilePic={profilePic} />}
-                {!profilePic && username && <AvatarByUserName username={username} />}
+
+
+                {profilePic ?
+
+                    < AvatarByPic username={username} profilePic={profilePic} /> :
+                    <AvatarByUserName username={username} />
+                }
+
+
+
                 <p>{username}</p>
 
                 {
