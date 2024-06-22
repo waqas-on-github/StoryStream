@@ -6,7 +6,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { z } from "zod";
 import { toast } from "sonner";
-import { Delete, RemoveFormatting, Search } from "lucide-react";
+import { Delete, RemoveFormatting, Search, ShowerHeadIcon, Trash } from "lucide-react";
 
 
 
@@ -22,10 +22,6 @@ const SearchBox = () => {
 
 
     const handleSearch = (term: string) => {
-
-
-
-
 
         const termsShema = z.string().trim()
         const isvaildTerm = termsShema.safeParse(term)
@@ -59,18 +55,27 @@ const SearchBox = () => {
 
     return (
         <>
-            <div className="flex" >
+            <div className="flex gap-4" >
                 <label htmlFor="search" className="sr-only">
                     Search
                 </label>
+                <div className="flex items-center justify-center  border-[1px] border-black/30 rounded px-3   " >
+
                 <Input
                     placeholder="search...."
                     onChange={(e) => {
                         setsearch(e?.target?.value);
                     }}
                     value={search}
-                />
-                <Button onClick={() => handleRemoveSearch()} > <Delete />   </Button>
+                        className="focus:outline-none focus:border-none  outline-none border-none placeholder:text-[15px]"
+                    />
+
+                    <Trash
+                        className="text-black/80 hover:text-black transition focus:text-black"
+                        size={15}
+                        onClick={() => handleRemoveSearch()} />
+
+                </div>
                 <Button onClick={() => handleSearch(search)} > <Search /></Button>
 
             </div>

@@ -1,4 +1,4 @@
-import React from 'react'
+'use server'
 import RenderToMd from './renderToMd'
 import { Card } from './ui/card'
 import Image from 'next/image'
@@ -46,16 +46,16 @@ const RenderMdToHtml = async ({ searchParams }: { searchParams: { query: string,
                 parsedArticlesWithText && parsedArticlesWithText.map((oneArticle: any, index: any) => {
                     return (
                         <> 
-                        <Card className='w-[300px] flex flex-col justify-center ' key={index}>
+                            <Card className='w-[300px] flex flex-col justify-center bg-gray-200 overflow-hidden ' key={index}>
                             <h1> {oneArticle.title}</h1> <span className='text-[10px]'  >
                                 by---{oneArticle.email}</span>
                             {oneArticle && oneArticle.image && <Image src={oneArticle?.image} alt="feature image" width={200} height={200} />}
                             <div className='flex flex-col  p-2'>
                                 <RenderToMd oneArticle={oneArticle.text.slice(0, 50)} />
                                 <Link className='self-end text-[12px]' href={`/articles/${oneArticle.id}`} > Read More </Link>
-                            </div>
-                                <CardBtnWrapper articleId={oneArticle.id} user={user.id} />
+                                </div>
 
+                                <CardBtnWrapper articleId={oneArticle.id} user={user.id} />
                         </Card  >
                         </>
                     )

@@ -10,6 +10,8 @@ import { Button } from './ui/button';
 import { Loader } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { editorSchema } from '@/schema/schmea';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 
 
@@ -18,7 +20,7 @@ const WriteForm = () => {
 
     const { register, trigger, getValues, setValue, formState: { errors } }
         = useForm<z.infer<typeof editorSchema>>({ resolver: zodResolver(editorSchema) })
-
+    const featureimageUrl = useSelector((state: RootState) => state.editorState.featureimageUrl)
     const { mutate, isPending } = usePostArticle()
     const router = useRouter()
     // callback funcation to get markdown contetn form editor 
@@ -46,7 +48,7 @@ const WriteForm = () => {
 
         if (formValues.title.length === 5 || formValues.title.length > 5) {
 
-            mutate(JSON.stringify(formValues), {
+            mutate(JSON.stringify({ ...formValues, featureimageUrl: featureimageUrl }), {
                 onSuccess: () => {
                     router.push('/articles')
                 }
@@ -59,8 +61,9 @@ const WriteForm = () => {
 
 
     return (
-        <div className='w-[80%] md:w-[70%] bg-[#171717] p-[20px] mt-10 '>
+
             <form action={onSubmit} className="flex gap-4 flex-col justify-center h-auto">
+
                 <div>
                     <input
                         className="bg-[#171717] h-20    px-3 text-[50px] w-full border-none focus-none placeholder:text-[#adb5bd] text-white placeholder:px-2 placeholder:text-[50px]"
@@ -88,7 +91,7 @@ const WriteForm = () => {
                         publish
                     </Button>}
             </form>
-        </div>
+
     );
 };
 

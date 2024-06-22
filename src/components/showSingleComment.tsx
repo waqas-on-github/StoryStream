@@ -1,19 +1,14 @@
 'use client'
-import { useDispatch, useSelector } from "react-redux";
-import { UserAvatar } from "./userAvatar"
 import { useDeleteComment } from "@/hooks/useDeleteComment"
-import { RootState } from "../../store";
 import { EllipsisVertical } from "lucide-react";
-import { setEdit } from "@/featurs/commentSlice";
-import { Dialog, DialogContent, DialogTitle, DialogTrigger } from "./ui/dialog";
-import { Button } from "./ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import CommentForm from "./commentForm";
+import { AvatarByPic } from "./userAvatar";
+import { Profile } from "@prisma/client";
 
-const ShowSingleComment = ({ comment, articleId, loggendInUserId, alreadyCommented }: { loggendInUserId: string; comment: any; articleId: string, alreadyCommented: boolean }) => {
+const ShowSingleComment = ({ comment, articleId, loggendInUserId, alreadyCommented, profile }: { loggendInUserId: string; comment: any; articleId: string, alreadyCommented: boolean; profile: Profile }) => {
 
     const { mutate, isPending } = useDeleteComment()
-    const edit = useSelector((state: RootState) => state.commentState.isEditOpen)
-    const dispatch = useDispatch()
 
 
     const removeComment = async () => {
@@ -24,7 +19,8 @@ const ShowSingleComment = ({ comment, articleId, loggendInUserId, alreadyComment
         <>
             <div className="flex  items-center">
                 <div className="flex items-center justify-center">
-                <UserAvatar />
+                    {/* <UserAvatar /> */}
+                    <AvatarByPic profilePic={profile.profilePic} username={profile.username} />
                 <p>{comment?.comment}</p>
             </div>
 

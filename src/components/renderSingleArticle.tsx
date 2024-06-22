@@ -11,6 +11,7 @@ const RenderSingleArticle = ({ SingleArticle }: { SingleArticle: any }) => {
             <h1>{SingleArticle?.title}</h1>
             {SingleArticle && <RenderToMd oneArticle={JSON.parse(SingleArticle?.text)} />}
 
+
         </div>
     )
 }

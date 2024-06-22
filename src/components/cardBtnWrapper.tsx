@@ -38,7 +38,7 @@ const CardBtnWrapper = async ({ articleId, user }: { articleId: string; user: st
     })
 
     return (
-        <div className='flex '>
+        <div className='flex  '>
             <BookMarkBtn articleId={articleId} isBookMarkedByLoggedUser={isBookMarkedByLoggedUser} />
             <UpVoteBtn articleId={articleId} voteType="UPVOTE" totalUpVotes={totalUpvotesCount} isUpVotedByLoggedInUser={isUpVotedByLoggedInUser} />
             <DownVote articleId={articleId} voteType="DOWNVOTE" totalDownVotes={totalUDownVotesCount} isDownVotedByLoggedInUser={isDownVotedByLoggedInUser} />

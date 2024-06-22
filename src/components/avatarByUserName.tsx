@@ -15,7 +15,7 @@ const getRandomColor = (seed: string) => {
     return `rgb(${r},${g},${b})`;
 };
 
-export const AvatarByUserName = ({ username, size = 50, bgColor, textColor = '#fff' }: AvatarProps) => {
+export const AvatarByUserName = ({ username, size = 40, bgColor, textColor = '#fff' }: AvatarProps) => {
     const initial = username.charAt(0).toUpperCase();
     const colorSeed = username.slice(0, 2);
     const backgroundColor = bgColor || getRandomColor(colorSeed);

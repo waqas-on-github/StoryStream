@@ -10,14 +10,17 @@ const page = async ({ searchParams }: { searchParams: { query: string, date: 'as
 
     return (
         <div className=' flex items-center justify-center flex-col'>
-            <div className='flex '>
+
+
+            <div className='flex p-10 gap-5'>
                 <SearchBox />
                 <SortBydate />
             </div>
 
-            <div className='flex items-center justify-center'>
+            <div className='p-10 flex gap-10 flex-wrap items-center justify-center'>
                 <RenderMdToHtml searchParams={searchParams} />
             </div>
+
 
             <PaginationControls />
         </div>

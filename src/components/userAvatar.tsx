@@ -11,6 +11,7 @@ export type avatarByPicType = {
 
 export const AvatarByPic = ({ profilePic, username }: avatarByPicType) => {
 
+    console.log(profilePic);
 
     return (
 
@@ -22,8 +23,8 @@ export const AvatarByPic = ({ profilePic, username }: avatarByPicType) => {
 
                 {profilePic ? <AvatarImage
                     alt="user avatar"
-                    className="w-[50px] h-[50px] rounded-full"
-                    src={profilePic} />
+                    className="w-[40px] h-[40px] rounded-full"
+                    src={profilePic || '../../public/placeholder.svg'} />
                     :
                     <AvatarByUserName username={username} />
 
