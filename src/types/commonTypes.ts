@@ -42,3 +42,11 @@ export type voteType = {
   articleId: string;
   voteType: "UPVOTE" | "DOWNVOTE";
 };
+
+
+ export type addCommentType = {
+   slug: string;
+   comment: string;
+   commentType: string;
+   commentId: string;
+ }; 

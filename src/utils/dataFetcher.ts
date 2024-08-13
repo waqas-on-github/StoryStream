@@ -1,3 +1,4 @@
+import "server-only";
 import { CheckAuth } from "@/actions/checkAuth";
 import { prisma } from "../../prismaClient";
 
@@ -14,11 +15,12 @@ export const hasAlreadyCommented = async ({
         userId: userId,
         articleId: slug,
       },
-      take: 2, // user can on add 2 comments per article
+      take: 2, // user can only  add 2 comments per article
     });
 
-    if (!alreadyCommented)
+    if (!alreadyCommented) {
       return { success: false, error: { message: "failed to find comments" } };
+    }
     return { success: true, data: alreadyCommented };
   } catch (error) {
     return { success: false, error: { message: "failed to find comments" } };
@@ -118,7 +120,8 @@ export const getArticles = async ({
       where: { title: { contains: searchParams?.query || "" } },
       orderBy: { createdAt: searchParams?.date || "asc" },
       include: {
-        user: { select: { email: true } },
+        user: { include: { profile: { select: { username: true } } } },
+
         votes: { select: { voteType: true } },
       },
       take: 6,
@@ -137,11 +140,7 @@ export const getArticles = async ({
   }
 };
 
-
-
 export const getProfile = async (userId: string) => {
-  
-  
   try {
     const profile = await prisma.profile.findUnique({
       where: { userId: userId },

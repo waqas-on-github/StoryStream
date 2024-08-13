@@ -1,5 +1,5 @@
 "use server";
-
+import "server-only";
 import argon2 from "argon2";
 import { prisma } from "../../prismaClient";
 import { User } from "@prisma/client";
@@ -7,8 +7,6 @@ import { lucia } from "@/lib/auth";
 import { cookies } from "next/headers";
 import { z } from "zod";
 import { signupSchema, userType } from "@/schema/schmea";
-
-
 
 export const signUp = async (inputData: z.infer<typeof signupSchema>) => {
   // validate data
@@ -25,18 +23,21 @@ export const signUp = async (inputData: z.infer<typeof signupSchema>) => {
   const hashePass = await argon2.hash(isvalidData?.data?.password);
 
   // insert data into db
-  const user = await insertIntoDb({
+  const user: Awaited<ReturnType<typeof insertIntoDb>> = await insertIntoDb({
     email: isvalidData.data.email,
     password: hashePass,
   });
 
   // after nerrowing down now user only have error data;
-  if (user.error && !user.success) return user;
+  if (user.error && !user.success)
+    return { error: { message: user.error.message } };
 
   // if insertion get successfull create session for user
   // save session id in cookies
+  // declaring type of session
   let session: Awaited<ReturnType<typeof createSessionAndSetCookies>>;
-  if (user && user.success && user.data) {
+
+  if (user && user?.success && user.data) {
     session = await createSessionAndSetCookies(user.data);
 
     if (!session) {
@@ -57,7 +58,7 @@ export const signUp = async (inputData: z.infer<typeof signupSchema>) => {
   }
 
   // after nerrowing down now user only have success data
-  if (user?.data) return user;
+  if (user?.data) return { success: true, data: user.data };
 
   // send email for email verification
 };

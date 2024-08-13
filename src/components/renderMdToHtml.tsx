@@ -14,6 +14,7 @@ const RenderMdToHtml = async ({ searchParams }: { searchParams: { query: string,
     const { user } = await CheckAuth()
     const articles = await getArticles({ searchParams })
 
+    console.log(articles);
 
 
     const parsedArticlesWithText = articles?.data?.map((oneArticle: any) => {
@@ -32,6 +33,7 @@ const RenderMdToHtml = async ({ searchParams }: { searchParams: { query: string,
         }
     })
 
+    console.log(parsedArticlesWithText);
 
 
     if (!articles || articles?.data?.length === 0 || articles.error) {
@@ -46,10 +48,11 @@ const RenderMdToHtml = async ({ searchParams }: { searchParams: { query: string,
                 parsedArticlesWithText && parsedArticlesWithText.map((oneArticle: any, index: any) => {
                     return (
                         <> 
+
                             <Card className='w-[300px] flex flex-col justify-center bg-gray-200 overflow-hidden ' key={index}>
                             <h1> {oneArticle.title}</h1> <span className='text-[10px]'  >
                                 by---{oneArticle.email}</span>
-                            {oneArticle && oneArticle.image && <Image src={oneArticle?.image} alt="feature image" width={200} height={200} />}
+                                {oneArticle && oneArticle.image && <Image src={oneArticle?.image} alt="feature image" width={200} height={200} />}
                             <div className='flex flex-col  p-2'>
                                 <RenderToMd oneArticle={oneArticle.text.slice(0, 50)} />
                                 <Link className='self-end text-[12px]' href={`/articles/${oneArticle.id}`} > Read More </Link>

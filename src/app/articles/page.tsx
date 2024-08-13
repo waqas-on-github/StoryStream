@@ -7,6 +7,7 @@ import PaginationControls from '@/components/paginationControls'
 
 const page = async ({ searchParams }: { searchParams: { query: string, date: 'asc' | 'desc', page: string } }) => {
     const { user } = await CheckAuth()
+    console.log("this is server component ");
 
     return (
         <div className=' flex items-center justify-center flex-col'>

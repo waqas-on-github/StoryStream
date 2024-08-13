@@ -1,3 +1,4 @@
+import "server-only";
 import { cookies } from "next/headers";
 import { cache } from "react";
 import type { Session, User } from "lucia";

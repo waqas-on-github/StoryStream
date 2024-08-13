@@ -1,5 +1,4 @@
 "use server";
-
 import { z } from "zod";
 import { prisma } from "../../prismaClient";
 import argon2 from "argon2";
@@ -56,7 +55,7 @@ const checkUserExistance = async (email: string) => {
   } catch (error) {
     return {
       success: false,
-      error: { message: "db query error " },
+      error: { message: "db query error" },
     };
   }
 };

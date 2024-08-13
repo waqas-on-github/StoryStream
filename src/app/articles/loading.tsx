@@ -1,7 +1,9 @@
 
-const loading = () => {
+const loading = async () => {
+
+
     return (
-        <div> loading articals........... </div>
+        <div> loading articals.............. </div>
     )
 }
 

@@ -13,8 +13,6 @@ const Profile = async () => {
             <ActiveLink href='/profile/create' > <Button>Create One here </Button> </ActiveLink >  </div>
     }
 
-
-
     return (
         <>
 

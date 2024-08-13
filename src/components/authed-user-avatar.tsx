@@ -2,7 +2,6 @@
 "use client"
 import { DropdownMenuItem, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu"
 import { getSingleUser } from "../lib/server_utils"
-import { ShowUserDetails } from "./show_user"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuRadioGroup, DropdownMenuSeparator } from "./ui/dropdown-menu"
 import { AvatarByPic } from "./userAvatar"
 import ActiveLink from "./activeLink"
