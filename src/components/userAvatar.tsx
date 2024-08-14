@@ -11,7 +11,6 @@ export type avatarByPicType = {
 
 export const AvatarByPic = ({ profilePic, username }: avatarByPicType) => {
 
-    console.log(profilePic);
 
     return (
 

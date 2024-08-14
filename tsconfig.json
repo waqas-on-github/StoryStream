@@ -2,11 +2,9 @@
   "compilerOptions": {
     "typeRoots": [
       "./node_modules/@types",
-      "./global.d.ts"
+      
     ],
-    "types": [
-      "./global.d.ts"
-    ],
+    
     "lib": [
       "dom",
       "dom.iterable",

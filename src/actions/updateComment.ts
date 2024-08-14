@@ -5,10 +5,9 @@ import { prisma } from "../../prismaClient";
 import { revalidatePath } from "next/cache";
 import { UpdateCommentScehema } from "@/schema/schmea";
 import { z } from "zod";
+import { addOrUpdateCommentType } from "@/types/commonTypes";
 
-export const updateComment = async (
-  data: z.infer<typeof UpdateCommentScehema>
-) => {
+export const updateComment = async (data: addOrUpdateCommentType) => {
   try {
     // check user is authed
     const { user } = await CheckAuth();

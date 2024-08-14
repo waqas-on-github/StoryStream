@@ -5,7 +5,7 @@ import { CheckAuth } from "./checkAuth";
 import { removeUpvote } from "./removeUpvote";
 import { voteType } from "@/types/commonTypes";
 
-export const addVote = async ({ articleId, voteType }: voteType) => {
+export const addOrRemoveVote = async ({ articleId, voteType }: voteType) => {
   // check user exists and logged in in application
   const { user } = await CheckAuth();
 

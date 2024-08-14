@@ -4,7 +4,6 @@ import { ActionResult } from "next/dist/server/app-render/types";
 import { cookies } from "next/headers";
 
 export async function logout(): Promise<ActionResult> {
-  console.log("logout action triggerd ");
 
   const { session } = await validateRequest();
   if (!session) {

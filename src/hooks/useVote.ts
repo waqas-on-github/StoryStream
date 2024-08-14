@@ -1,11 +1,11 @@
 "use client";
-import { addVote } from "@/actions/vote";
+import { addOrRemoveVote } from "@/actions/vote";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
 export const useVote = () => {
   const { mutate, isPending, data } = useMutation({
-    mutationFn: addVote,
+    mutationFn: addOrRemoveVote,
     onSuccess: (data) => {
       if (!data?.success && data?.error) {
         toast.error(data?.error?.message);

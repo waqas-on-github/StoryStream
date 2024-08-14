@@ -8,121 +8,107 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
- 
 }
 
-
-
-
 model User {
-  id               String     @id @default(cuid())
-  email            String     @unique
-  password         String
-  sessions         Session[]
-  profile          Profile?
-  articals         Articles[]
-  bookmark         Bookmark[]
-  comment          Comments[]
-  votes              Vote[]
-  updatedAt        DateTime   @updatedAt
-  createdAt        DateTime   @default(now())
+  id        String     @id @default(cuid())
+  email     String     @unique
+  password  String
+  sessions  Session[]
+  profile   Profile?
+  articals  Articles[]
+  bookmark  Bookmark[]
+  comment   Comments[]
+  votes     Vote[]
+  updatedAt DateTime   @updatedAt
+  createdAt DateTime   @default(now())
 
+  views views[]
 }
 
 model Session {
-
-  id               String     @id @default(cuid())
-  userId           String
-  expiresAt        DateTime
-  user             User       @relation(references: [id], fields: [userId])
-  updatedAt        DateTime   @updatedAt
-  createdAt        DateTime   @default(now())
+  id        String   @id @default(cuid())
+  userId    String
+  expiresAt DateTime
+  user      User     @relation(references: [id], fields: [userId])
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
 }
 
 model Profile {
-
-  id               String     @id @default(cuid())
-  username         String     @unique
-  user             User       @relation(references: [id], fields: [userId])
-  userId           String     @unique
-  profilePic       String?
-  updatedAt        DateTime   @updatedAt
-  createdAt        DateTime   @default(now())
+  id         String   @id @default(cuid())
+  username   String   @unique
+  user       User     @relation(references: [id], fields: [userId])
+  userId     String   @unique
+  profilePic String?
+  updatedAt  DateTime @updatedAt
+  createdAt  DateTime @default(now())
 }
 
 model Bookmark {
-
-  id               String     @id @default(cuid())  // bookmark id 
-  userId           String     
-  articleId        String     
-  user             User       @relation(fields: [userId], references: [id])
-  article          Articles   @relation(fields: [articleId], references: [id])
-  updatedAt        DateTime   @updatedAt
-  createdAt        DateTime   @default(now())
+  id        String   @id @default(cuid()) // bookmark id 
+  userId    String
+  articleId String
+  user      User     @relation(fields: [userId], references: [id])
+  article   Articles @relation(fields: [articleId], references: [id])
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
 }
 
-  model Articles {
-      
-    id               String     @id @default(cuid())
-    bookmark         Bookmark[]
-    comment          Comments[]
-    catagory         Catagory[]
-    votes             Vote[]
-    user             User       @relation(references: [id], fields: [userId], onDelete: Cascade)
-    userId           String
-    views            BigInt?
-    title            String
-    text             String
-    featureImage     String? 
-    updatedAt        DateTime   @updatedAt
-    createdAt        DateTime   @default(now())
-      
-  }
+model Articles {
+  id           String     @id @default(cuid())
+  bookmark     Bookmark[]
+  comment      Comments[]
+  catagory     Catagory[]
+  votes        Vote[]
+  user         User       @relation(references: [id], fields: [userId], onDelete: Cascade)
+  userId       String
+  title        String
+  text         String
+  featureImage String?
+  updatedAt    DateTime   @updatedAt
+  createdAt    DateTime   @default(now())
+  views        views[]
+}
+
+model views {
+  id         String   @id @default(cuid())
+  viewCounts BigInt?
+  user       User     @relation(references: [id], fields: [viewerId], onDelete: Cascade)
+  viewerId   String
+  article    Articles @relation(fields: [articleId], references: [id])
+  articleId  String
+}
 
 model Comments {
-  id               String     @id @default(cuid())
-  userId           String     
-  articleId        String     
-  comment          String
-  user             User       @relation(fields: [userId], references: [id])
-  article          Articles   @relation(fields: [articleId], references: [id])
-  updatedAt        DateTime   @updatedAt
-  createdAt        DateTime   @default(now())
+  id        String   @id @default(cuid())
+  userId    String
+  articleId String
+  comment   String
+  user      User     @relation(fields: [userId], references: [id])
+  article   Articles @relation(fields: [articleId], references: [id])
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
 }
 
 model Catagory {
-  id                String     @id @default(cuid())
-  articleId         String
-  article           Articles   @relation(fields: [articleId], references: [id])
-  updatedAt         DateTime   @updatedAt
-  createdAt         DateTime   @default(now())
-} 
-
+  id        String   @id @default(cuid())
+  articleId String
+  article   Articles @relation(fields: [articleId], references: [id])
+  updatedAt DateTime @updatedAt
+  createdAt DateTime @default(now())
+}
 
 model Vote {
-   id          String     @id @default(cuid())
-   voteType    voteType
-   userId      String     
-   articleId   String     
-   user        User       @relation(references: [id], fields: [userId])
-   article     Articles   @relation(references: [id] , fields: [articleId])
-
+  id        String   @id @default(cuid())
+  voteType  voteType
+  userId    String
+  articleId String
+  user      User     @relation(references: [id], fields: [userId])
+  article   Articles @relation(references: [id], fields: [articleId])
 }
 
 enum voteType {
   UPVOTE
   DOWNVOTE
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

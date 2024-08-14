@@ -14,7 +14,6 @@ const RenderMdToHtml = async ({ searchParams }: { searchParams: { query: string,
     const { user } = await CheckAuth()
     const articles = await getArticles({ searchParams })
 
-    console.log(articles);
 
 
     const parsedArticlesWithText = articles?.data?.map((oneArticle: any) => {
@@ -33,7 +32,6 @@ const RenderMdToHtml = async ({ searchParams }: { searchParams: { query: string,
         }
     })
 
-    console.log(parsedArticlesWithText);
 
 
     if (!articles || articles?.data?.length === 0 || articles.error) {

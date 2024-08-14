@@ -1,20 +1,13 @@
 import { addComment } from "@/actions/addComment";
 import { updateComment } from "@/actions/updateComment";
+import { addOrUpdateCommentType } from "@/types/commonTypes";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
-interface CommentData {
-  slug: string;
-  comment: string;
-  commentType: "add" | "edit";
-  commentId?: string;
-}
-
 export const usePostComment = () => {
-
   const { mutate, isPending } = useMutation({
-    mutationFn: async (inputs: CommentData) => {
-      if (inputs.commentType === "add") {
+    mutationFn: async (inputs: addOrUpdateCommentType) => {
+      if (inputs && inputs.commentType === "add") {
         return await addComment(inputs);
       } else if (
         inputs.commentType === "edit" &&

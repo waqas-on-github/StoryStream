@@ -82,7 +82,7 @@ const config = {
   },
   plugins: [
     require("tailwindcss-animate"),
-    function ({ addUtilities }) {
+    function ({ addUtilities }: { addUtilities: any }) {
       addUtilities({
         ".focus-none": {
           outline: "none",

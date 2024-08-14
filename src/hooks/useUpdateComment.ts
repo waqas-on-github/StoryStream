@@ -7,7 +7,6 @@ export const useUpdateComment = () => {
   const { mutate, isPending } = useMutation({
     mutationFn: updateComment,
     onSuccess: (data) => {
-      console.log(data);
 
       if (data?.error || !data?.success) {
         toast.message("falied to update comment");

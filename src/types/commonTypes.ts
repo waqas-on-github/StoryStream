@@ -44,9 +44,9 @@ export type voteType = {
 };
 
 
- export type addCommentType = {
+ export type addOrUpdateCommentType = {
    slug: string;
    comment: string;
-   commentType: string;
-   commentId: string;
+   commentType: "add" | "edit";
+   commentId?: string;
  }; 

@@ -7,7 +7,6 @@ export const useDeleteArticle = () => {
   const { mutate, isPending, data } = useMutation({
     mutationFn: DeleteSingleArticle,
     onSuccess: (data) => {
-      console.log(data);
 
       if (!data?.success && data?.error) {
         toast.error(data?.error?.message);

@@ -11,7 +11,6 @@ const ImageUploadForm = () => {
     const { register, trigger, getValues } = useForm();
 
     const uploadImage = async () => {
-        console.log("image upload");
 
         const isTriggered = await trigger('featureImage');
         if (!isTriggered) {

@@ -6,7 +6,7 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { z } from "zod";
 import { toast } from "sonner";
-import { Delete, RemoveFormatting, Search, ShowerHeadIcon, Trash } from "lucide-react";
+import { Search, Trash } from "lucide-react";
 
 
 

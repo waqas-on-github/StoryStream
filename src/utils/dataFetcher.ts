@@ -157,3 +157,23 @@ export const getProfile = async (userId: string) => {
     };
   }
 };
+
+export const getTotalViews = async (articleId: string) => {
+  try {
+    const totalViews = await prisma.views.count({
+      where: { articleId: articleId },
+    });
+
+    return {
+      success: true,
+      data: totalViews,
+      error: { message: null },
+    };
+  } catch (error: any) {
+    return {
+      success: false,
+      data: null,
+      error: { message: "failed to get views " },
+    };
+  }
+};

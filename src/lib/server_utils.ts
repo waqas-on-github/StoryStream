@@ -2,6 +2,7 @@ import "server-only";
 import { prisma } from "../../prismaClient";
 import { getCloudniry } from "@/config/cloudinaryConfig";
 import { CheckAuth } from "@/actions/checkAuth";
+import { revalidatePath } from "next/cache";
 
 interface UploadResult {
   url: string;
@@ -55,7 +56,6 @@ export const deleteImage = async (imageUrl: string) => {
 
   try {
     const deleted = await cloudniary.uploader.destroy(imageUrl);
-    console.log(deleted);
 
     return { success: true, data: deleted };
   } catch (error) {
@@ -73,4 +73,21 @@ export const getProfileByUserId = async (userId: string) => {
   } catch (error) {
     return { success: false, error: { message: "faile to get profile " } };
   }
+};
+
+export const updateViewCount = async (articleId: string, viewerId: string) => {
+  revalidatePath("/articles", "page");
+  try {
+    // check if user already viewed before and record is inserted before
+    const hasViewdAlready = await prisma.views.findFirst({
+      where: { viewerId: viewerId, articleId: articleId },
+    });
+    let newView;
+    // creat new view
+    if (!hasViewdAlready) {
+      newView = await prisma.views.create({
+        data: { articleId: articleId, viewerId: viewerId },
+      });
+    }
+  } catch (error) {}
 };

@@ -35,7 +35,6 @@ const PaginationControls = () => {
 
     const setNextPage = () => {
 
-        console.log("next  clicked ");
         console.log(pageNumber, "prev");
 
         setPageNumber((prev) => prev + 1)

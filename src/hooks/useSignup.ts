@@ -10,7 +10,6 @@ export const useSignUp = () => {
   const { mutate, isPending, data } = useMutation({
     mutationFn: signUp,
     onSuccess: (data) => {
-      console.log(data);
 
       if (!data?.success && data?.error) {
         toast.error(data?.error?.message);

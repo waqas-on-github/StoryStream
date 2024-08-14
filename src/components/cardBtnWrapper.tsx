@@ -3,6 +3,7 @@ import BookMarkBtn from "./bookMarkBtn"
 import UpVoteBtn from "./upVoteBtn"
 import DownVote from './downVote'
 import { prisma } from "../../prismaClient"
+import TotalViews from "./totalViews"
 
 
 const CardBtnWrapper = async ({ articleId, user }: { articleId: string; user: string }) => {
@@ -42,6 +43,9 @@ const CardBtnWrapper = async ({ articleId, user }: { articleId: string; user: st
             <BookMarkBtn articleId={articleId} isBookMarkedByLoggedUser={isBookMarkedByLoggedUser} />
             <UpVoteBtn articleId={articleId} voteType="UPVOTE" totalUpVotes={totalUpvotesCount} isUpVotedByLoggedInUser={isUpVotedByLoggedInUser} />
             <DownVote articleId={articleId} voteType="DOWNVOTE" totalDownVotes={totalUDownVotesCount} isDownVotedByLoggedInUser={isDownVotedByLoggedInUser} />
+            <TotalViews articleId={articleId} />
+
+
         </div>
     )
 }

@@ -5,9 +5,9 @@ import { prisma } from "../../prismaClient";
 import { hasAlreadyCommented } from "@/utils/dataFetcher";
 import { revalidatePath } from "next/cache";
 import { commentScehema } from "@/schema/schmea";
-import { addCommentType } from "@/types/commonTypes";
+import { addOrUpdateCommentType } from "@/types/commonTypes";
 
-export const addComment = async (data: addCommentType) => {
+export const addComment = async (data: addOrUpdateCommentType) => {
   try {
     // check user is authed
     const { user } = await CheckAuth();

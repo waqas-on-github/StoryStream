@@ -2,18 +2,16 @@
 import { prisma } from "../../prismaClient";
 import { sleep } from "@/lib/utils";
 import { CheckAuth } from "./checkAuth";
+import { revalidatePath } from "next/cache";
 
 export const SubmitArticle = async (data: string) => {
-
   const parsedData = JSON.parse(data);
-  console.log(data);
 
   const { user } = await CheckAuth();
 
   let postedData;
   try {
     if (user) {
-      await sleep(1000);
       postedData = await prisma.articles.create({
         data: {
           title: parsedData.title,
@@ -30,6 +28,7 @@ export const SubmitArticle = async (data: string) => {
         error: { message: "failed to post data" },
       };
     }
+    revalidatePath("/articles", "page");
 
     return { success: true, data: postedData };
   } catch (error) {

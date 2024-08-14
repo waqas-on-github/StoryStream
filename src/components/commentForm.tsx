@@ -66,7 +66,7 @@ const CommentForm = ({ slug, alreadyCommented, commentType, commentText, removeC
         <form action={submit} className="flex gap-3" >
             <Label htmlFor="comment"></Label>
             <div className="flex flex-col text-[2px]">
-                <Input placeholder={`${alreadyCommented ? " reached comment your target" : "add comment here"}`} type="text" {...register('comment')} />
+                <Input placeholder={`${alreadyCommented ? " reached comment limit" : "add comment here"}`} type="text" {...register('comment')} />
                 {errors?.comment && <span className="text-sm text-red-400">{errors?.comment?.message}</span>}
             </div>
             {isPending ?

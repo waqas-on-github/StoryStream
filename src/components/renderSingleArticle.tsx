@@ -1,10 +1,20 @@
+import { CheckAuth } from "@/actions/checkAuth"
 import RenderToMd from "./renderToMd"
+import { updateViewCount } from "@/lib/server_utils"
 
-const RenderSingleArticle = ({ SingleArticle }: { SingleArticle: any }) => {
+const RenderSingleArticle = async ({ SingleArticle }: { SingleArticle: any }) => {
 
     if (!SingleArticle) {
         return <> Article Not Found ....</>
     }
+    const { user } = await CheckAuth()
+    console.log(user);
+
+    // update the view count 
+    await updateViewCount(SingleArticle.id, user.id)
+
+
+
     return (
 
         <div>
