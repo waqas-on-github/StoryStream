@@ -1,5 +1,3 @@
-import { CheckAuth } from "@/actions/checkAuth"
-import { prisma } from "../../../../../prismaClient"
 import ShowWritings from "@/components/showWritings"
 import { getWritings } from "@/utils/dataFetcher"
 

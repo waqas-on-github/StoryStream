@@ -40,9 +40,10 @@ export const getSingleArticle = async (slug: string) => {
   }
 };
 
-export const getComments = async () => {
+export const getComments = async (articleId: string) => {
   try {
     const comments = await prisma.comments.findMany({
+      where: { articleId: articleId },
       include: { user: true },
     });
 

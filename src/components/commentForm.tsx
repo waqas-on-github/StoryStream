@@ -73,7 +73,10 @@ const CommentForm = ({ slug, alreadyCommented, commentType, commentText, removeC
                 <Button className="w-[50px] rounded-sm" disabled > <LoaderIcon /> </Button>
 
                 :
-                <Button disabled={commentType === 'add' && alreadyCommented} className="w-[50px] rounded-sm" type="submit" > {commentType === "add" ? "add" : "update"} </Button>
+                commentType === 'add' && alreadyCommented ?
+                    <Button disabled className="w-[50px] rounded-sm= cursor-context-menu" >{commentType === "add" ? "add" : "update"}  </Button>
+                    :
+                    <Button className="w-[50px] rounded-sm " type="submit" > {commentType === "add" ? "add" : "update"} </Button>
             }
 
 

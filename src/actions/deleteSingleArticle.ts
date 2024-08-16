@@ -13,6 +13,23 @@ export const DeleteSingleArticle = async ({
 
   if (user.id && userId === user.id) {
     try {
+      // before deleting article we need to delete all views of article
+      await prisma.views.deleteMany({
+        where: { articleId: id },
+      });
+      // deleting  comments assocated with article
+      await prisma.comments.deleteMany({
+        where: { articleId: id },
+      });
+      // delete if this article is bookmarked
+      await prisma.bookmark.deleteMany({
+        where: { articleId: id },
+      });
+      // delete if article is voted
+      await prisma.vote.deleteMany({
+        where: { articleId: id },
+      });
+
       const deleteArticle = await prisma.articles.delete({
         where: {
           id: id,

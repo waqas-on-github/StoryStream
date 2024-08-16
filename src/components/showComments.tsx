@@ -5,7 +5,7 @@ import { getComments, hasAlreadyCommented } from "@/utils/dataFetcher"
 
 const ShowComments = async ({ articleId, userId, profile }: { articleId: string; userId: string, profile: Profile }) => {
 
-    const comments: Awaited<ReturnType<typeof getComments>> = await getComments()
+    const comments: Awaited<ReturnType<typeof getComments>> = await getComments(articleId)
 
     const commentLimit = await hasAlreadyCommented({ slug: articleId, userId })
 
