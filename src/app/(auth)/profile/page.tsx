@@ -16,8 +16,8 @@ const Profile = async () => {
     return (
         <>
 
-            {profile && profile.data && profile.data.username &&
-                < ShowProfile profilePic={profile?.data.profilePic} username={profile?.data?.username} profileId={profile.data.id} />
+            {profile && profile.data && profile.data.profilePic &&
+                < ShowProfile profilePic={profile?.data.profilePic} profileId={profile.data.id} username={profile.data.username} />
             }
         </>
     )

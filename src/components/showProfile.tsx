@@ -9,7 +9,7 @@ import { RootState } from "../../store"
 import { setEditDialogState } from "@/featurs/profileSlice"
 import '../app/icon.css'
 
-const ShowProfile = ({ profilePic, username, profileId }: avatarByPicType & { profileId: string }) => {
+const ShowProfile = ({ profilePic, username, profileId }: avatarByPicType & { profileId: string, username: string }) => {
 
 
 
@@ -26,8 +26,7 @@ const ShowProfile = ({ profilePic, username, profileId }: avatarByPicType & { pr
 
 
                 {profilePic ?
-
-                    < AvatarByPic username={username} profilePic={profilePic} /> :
+                    < AvatarByPic profilePic={profilePic} /> :
                     <AvatarByUserName username={username} />
                 }
 

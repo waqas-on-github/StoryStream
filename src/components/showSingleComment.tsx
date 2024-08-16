@@ -19,8 +19,8 @@ const ShowSingleComment = ({ comment, articleId, loggendInUserId, alreadyComment
         <>
             <div className="flex  items-center">
                 <div className="flex items-center justify-center">
-                    {/* <UserAvatar /> */}
-                    <AvatarByPic profilePic={profile.profilePic} username={profile.username} />
+
+                    {profile && profile.profilePic && <AvatarByPic profilePic={profile?.profilePic} />}
                 <p>{comment?.comment}</p>
             </div>
 
