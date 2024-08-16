@@ -7,6 +7,7 @@ import { AvatarByPic } from "./userAvatar"
 import ActiveLink from "./activeLink"
 import LogoutBtn from "./logoutBtn"
 import { useState } from "react"
+import { AvatarByUserName } from "./avatarByUserName"
 
 export function AuthedUserAvatar({ user }: { user: Awaited<ReturnType<typeof getSingleUser>> }) {
 
@@ -14,20 +15,33 @@ export function AuthedUserAvatar({ user }: { user: Awaited<ReturnType<typeof get
   const [position, setPosition] = useState("top")
 
 
-
   return (
     <>
       <DropdownMenu>
 
         <DropdownMenuTrigger >
-          {
-            user.data?.profile?.username &&
-            < AvatarByPic username={user.data?.profile?.username} profilePic={user.data?.profile?.profilePic} />}
+
+
+
+
+
+          {user.data?.profile?.username && !user.data.profile.profilePic ?
+
+            <AvatarByUserName username={user.data?.profile?.username} /> :
+
+            user.data?.profile?.profilePic && <AvatarByPic profilePic={user.data?.profile?.profilePic} />
+
+          }
+
+
+
+
+
+
+
         </DropdownMenuTrigger>
         <DropdownMenuContent className=" flex items-center justify-center flex-col gap-4 " >
           <DropdownMenuSeparator />
-          {/* {<ShowUserDetails user={user} />} */}
-
           <DropdownMenuItem>
             <ActiveLink href='/profile' > Profile</ActiveLink>
           </DropdownMenuItem>
